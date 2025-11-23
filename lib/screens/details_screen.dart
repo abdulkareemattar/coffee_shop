@@ -1,11 +1,13 @@
 import 'package:coffee_shop/models/coffee_model.dart';
 import 'package:coffee_shop/screens/order_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:readmore/readmore.dart';
 
 import '../app/app_colors.dart';
+import '../cubit/favorites_cubit.dart';
 import '../gen/assets.gen.dart';
 import '../widgets/select_size_containers.dart';
 
@@ -35,8 +37,23 @@ class DetailsScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: SvgPicture.asset(
-              Assets.icons.typeRegularStateOutlineLibraryHeart,
+            child: BlocBuilder<FavoritesCubit, FavoritesState>(
+              builder: (context, state) {
+                final isFavorite = state.favorites.any((fav) =>
+                fav.id == coffeeModel.id);
+                return IconButton(
+                  iconSize: 32,
+                  icon: SvgPicture.asset(
+                    Assets.icons.typeRegularStateOutlineLibraryHeart,
+                    colorFilter: ColorFilter.mode(
+                      isFavorite ? Colors.red : Colors.grey,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  onPressed: () {
+                    context.read<FavoritesCubit>().toggleFavorite(coffeeModel); },
+                );
+              },
             ),
           ),
         ],
@@ -108,6 +125,7 @@ class DetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Divider(color: Colors.grey.shade300, thickness: 1.h),
             ),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
