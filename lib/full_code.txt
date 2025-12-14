@@ -1,0 +1,2204 @@
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\app\app.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../screens/onboarding_screen.dart';
+import 'app_colors.dart';
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          home: OnboardingScreen(),
+        );
+      },
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\app\app_colors.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:coffee_shop/gen/assets.gen.dart';
+
+class AppColors {
+  static const Color primary = Color(0xFFC67C4E);
+  static const Color lightBrown = Color(0xFFEDD6C8);
+  static const Color darkGrey = Color(0xFF313131);
+  static const Color lightGrey = Color(0xFFE3E3E3);
+  static const Color offWhite = Color(0xFFF9F2ED);
+  static const Color white = Colors.white;
+  static const Color black = Colors.black;
+  static const Color green = Color(0xFF36C07E);
+}
+
+class AppTheme {
+  static ThemeData get lightTheme {
+    return ThemeData(
+      primaryColor: AppColors.primary,
+      scaffoldBackgroundColor: AppColors.white,
+      fontFamily: Assets.fonts.soraRegular,
+
+      colorScheme: const ColorScheme.light(
+        primary: AppColors.primary,
+        secondary: AppColors.lightBrown,
+        surface: AppColors.white,
+        background: Color(0xFFFAFAFA),
+        error: Colors.red,
+        onPrimary: AppColors.white,
+        onSecondary: AppColors.primary,
+        onSurface: AppColors.darkGrey,
+        onBackground: AppColors.darkGrey,
+        brightness: Brightness.light,
+      ),
+
+      textTheme: TextTheme(
+        headlineLarge: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.w600, color: AppColors.darkGrey),
+        headlineMedium: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w600, color: AppColors.darkGrey),
+        headlineSmall: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600, color: AppColors.darkGrey),
+
+        bodyLarge: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400, color: AppColors.darkGrey),
+        bodyMedium: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400, color: AppColors.darkGrey),
+        bodySmall: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, color: Colors.grey.shade600),
+
+        labelLarge: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: AppColors.white),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.white,
+          minimumSize: Size(double.infinity, 55.h),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          textStyle: TextStyle(
+            fontFamily: Assets.fonts.soraSemiBold,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AppColors.white,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: Colors.grey.shade400,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      ),
+
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: const Color(0xFFF9F9F9),
+        contentPadding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide.none,
+        ),
+        hintStyle: TextStyle(
+          fontSize: 14.sp,
+          color: Colors.grey.shade500,
+        ),
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\gen\assets.gen.dart ---
+// dart format width=80
+
+/// GENERATED CODE - DO NOT MODIFY BY HAND
+/// *****************************************************
+///  FlutterGen
+/// *****************************************************
+
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
+
+import 'package:flutter/widgets.dart';
+
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/Sora-Bold.ttf
+  String get soraBold => 'assets/fonts/Sora-Bold.ttf';
+
+  /// File path: assets/fonts/Sora-ExtraBold.ttf
+  String get soraExtraBold => 'assets/fonts/Sora-ExtraBold.ttf';
+
+  /// File path: assets/fonts/Sora-ExtraLight.ttf
+  String get soraExtraLight => 'assets/fonts/Sora-ExtraLight.ttf';
+
+  /// File path: assets/fonts/Sora-Light.ttf
+  String get soraLight => 'assets/fonts/Sora-Light.ttf';
+
+  /// File path: assets/fonts/Sora-Medium.ttf
+  String get soraMedium => 'assets/fonts/Sora-Medium.ttf';
+
+  /// File path: assets/fonts/Sora-Regular.ttf
+  String get soraRegular => 'assets/fonts/Sora-Regular.ttf';
+
+  /// File path: assets/fonts/Sora-SemiBold.ttf
+  String get soraSemiBold => 'assets/fonts/Sora-SemiBold.ttf';
+
+  /// File path: assets/fonts/Sora-Thin.ttf
+  String get soraThin => 'assets/fonts/Sora-Thin.ttf';
+
+  /// List of all assets
+  List<String> get values => [
+    soraBold,
+    soraExtraBold,
+    soraExtraLight,
+    soraLight,
+    soraMedium,
+    soraRegular,
+    soraSemiBold,
+    soraThin,
+  ];
+}
+
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/Edit Square.svg
+  String get editSquare => 'assets/icons/Edit Square.svg';
+
+  /// File path: assets/icons/Icon-1.png
+  AssetGenImage get icon1 => const AssetGenImage('assets/icons/Icon-1.png');
+
+  /// File path: assets/icons/Icon-2.png
+  AssetGenImage get icon2 => const AssetGenImage('assets/icons/Icon-2.png');
+
+  /// File path: assets/icons/Icon.png
+  AssetGenImage get icon => const AssetGenImage('assets/icons/Icon.png');
+
+  /// File path: assets/icons/Note.svg
+  String get note => 'assets/icons/Note.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Arrow - Down 2.svg
+  String get typeRegularStateOutlineLibraryArrowDown2 =>
+      'assets/icons/Type=Regular, State=Outline, Library=Arrow - Down 2.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Arrow - Left 2.svg
+  String get typeRegularStateOutlineLibraryArrowLeft2 =>
+      'assets/icons/Type=Regular, State=Outline, Library=Arrow - Left 2.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Arrow - Right 2.svg
+  String get typeRegularStateOutlineLibraryArrowRight2 =>
+      'assets/icons/Type=Regular, State=Outline, Library=Arrow - Right 2.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Arrow - Up 2.svg
+  String get typeRegularStateOutlineLibraryArrowUp2 =>
+      'assets/icons/Type=Regular, State=Outline, Library=Arrow - Up 2.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Bag.svg
+  String get typeRegularStateOutlineLibraryBag =>
+      'assets/icons/Type=Regular, State=Outline, Library=Bag.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Calling.svg
+  String get typeRegularStateOutlineLibraryCalling =>
+      'assets/icons/Type=Regular, State=Outline, Library=Calling.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Discount.svg
+  String get typeRegularStateOutlineLibraryDiscount =>
+      'assets/icons/Type=Regular, State=Outline, Library=Discount.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Filter.svg
+  String get typeRegularStateOutlineLibraryFilter =>
+      'assets/icons/Type=Regular, State=Outline, Library=Filter.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Heart.svg
+  String get typeRegularStateOutlineLibraryHeart =>
+      'assets/icons/Type=Regular, State=Outline, Library=Heart.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Home.svg
+  String get typeRegularStateOutlineLibraryHome =>
+      'assets/icons/Type=Regular, State=Outline, Library=Home.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=More Circle.svg
+  String get typeRegularStateOutlineLibraryMoreCircle =>
+      'assets/icons/Type=Regular, State=Outline, Library=More Circle.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Notification.svg
+  String get typeRegularStateOutlineLibraryNotification =>
+      'assets/icons/Type=Regular, State=Outline, Library=Notification.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Search.svg
+  String get typeRegularStateOutlineLibrarySearch =>
+      'assets/icons/Type=Regular, State=Outline, Library=Search.svg';
+
+  /// File path: assets/icons/Type=Regular, State=Outline, Library=Star.svg
+  String get typeRegularStateOutlineLibraryStar =>
+      'assets/icons/Type=Regular, State=Outline, Library=Star.svg';
+
+  /// File path: assets/icons/Wallet.svg
+  String get wallet => 'assets/icons/Wallet.svg';
+
+  /// File path: assets/icons/gps.svg
+  String get gps => 'assets/icons/gps.svg';
+
+  /// List of all assets
+  List<dynamic> get values => [
+    editSquare,
+    icon1,
+    icon2,
+    icon,
+    note,
+    typeRegularStateOutlineLibraryArrowDown2,
+    typeRegularStateOutlineLibraryArrowLeft2,
+    typeRegularStateOutlineLibraryArrowRight2,
+    typeRegularStateOutlineLibraryArrowUp2,
+    typeRegularStateOutlineLibraryBag,
+    typeRegularStateOutlineLibraryCalling,
+    typeRegularStateOutlineLibraryDiscount,
+    typeRegularStateOutlineLibraryFilter,
+    typeRegularStateOutlineLibraryHeart,
+    typeRegularStateOutlineLibraryHome,
+    typeRegularStateOutlineLibraryMoreCircle,
+    typeRegularStateOutlineLibraryNotification,
+    typeRegularStateOutlineLibrarySearch,
+    typeRegularStateOutlineLibraryStar,
+    wallet,
+    gps,
+  ];
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/6.png
+  AssetGenImage get a6 => const AssetGenImage('assets/images/6.png');
+
+  /// File path: assets/images/Banner 1.png
+  AssetGenImage get banner1 =>
+      const AssetGenImage('assets/images/Banner 1.png');
+
+  /// File path: assets/images/Image.png
+  AssetGenImage get image => const AssetGenImage('assets/images/Image.png');
+
+  /// File path: assets/images/Property 1=Coffee, Property 2=1.png
+  AssetGenImage get property1CoffeeProperty21 =>
+      const AssetGenImage('assets/images/Property 1=Coffee, Property 2=1.png');
+
+  /// File path: assets/images/Property 1=Coffee, Property 2=2.png
+  AssetGenImage get property1CoffeeProperty22 =>
+      const AssetGenImage('assets/images/Property 1=Coffee, Property 2=2.png');
+
+  /// File path: assets/images/Property 1=Coffee, Property 2=3.png
+  AssetGenImage get property1CoffeeProperty23 =>
+      const AssetGenImage('assets/images/Property 1=Coffee, Property 2=3.png');
+
+  /// File path: assets/images/Property 1=Coffee, Property 2=4.png
+  AssetGenImage get property1CoffeeProperty24 =>
+      const AssetGenImage('assets/images/Property 1=Coffee, Property 2=4.png');
+
+  /// File path: assets/images/Property 1=Coffee, Property 2=5.png
+  AssetGenImage get property1CoffeeProperty25 =>
+      const AssetGenImage('assets/images/Property 1=Coffee, Property 2=5.png');
+
+  /// File path: assets/images/Property 1=Coffee, Property 2=6.png
+  AssetGenImage get property1CoffeeProperty26 =>
+      const AssetGenImage('assets/images/Property 1=Coffee, Property 2=6.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    a6,
+    banner1,
+    image,
+    property1CoffeeProperty21,
+    property1CoffeeProperty22,
+    property1CoffeeProperty23,
+    property1CoffeeProperty24,
+    property1CoffeeProperty25,
+    property1CoffeeProperty26,
+  ];
+}
+
+class Assets {
+  const Assets._();
+
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
+}
+
+class AssetGenImage {
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+    this.animation,
+  });
+
+  final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
+
+  Image image({
+    Key? key,
+    AssetBundle? bundle,
+    ImageFrameBuilder? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
+    bool excludeFromSemantics = false,
+    double? scale,
+    double? width,
+    double? height,
+    Color? color,
+    Animation<double>? opacity,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
+    Rect? centerSlice,
+    bool matchTextDirection = false,
+    bool gaplessPlayback = true,
+    bool isAntiAlias = false,
+    String? package,
+    FilterQuality filterQuality = FilterQuality.medium,
+    int? cacheWidth,
+    int? cacheHeight,
+  }) {
+    return Image.asset(
+      _assetName,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      semanticLabel: semanticLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
+      width: width,
+      height: height,
+      color: color,
+      opacity: opacity,
+      colorBlendMode: colorBlendMode,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+      centerSlice: centerSlice,
+      matchTextDirection: matchTextDirection,
+      gaplessPlayback: gaplessPlayback,
+      isAntiAlias: isAntiAlias,
+      package: package,
+      filterQuality: filterQuality,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
+    );
+  }
+
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
+}
+
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
+
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\gen\fonts.gen.dart ---
+// dart format width=80
+/// GENERATED CODE - DO NOT MODIFY BY HAND
+/// *****************************************************
+///  FlutterGen
+/// *****************************************************
+
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
+
+class FontFamily {
+  FontFamily._();
+
+  /// Font family: Sora
+  static const String sora = 'Sora';
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\models\coffee_model.dart ---
+class CoffeeModel {
+  final String imagePath;
+  final String name;
+  final String type;
+  final double price;
+  final double rating;
+  final String description;
+
+  CoffeeModel({
+    required this.imagePath,
+    required this.name,
+    required this.type,
+    required this.price,
+    required this.rating,
+    required this.description,
+  });
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\cart_screen.dart ---
+import 'package:flutter/material.dart';
+
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Text('cart'),);
+  }
+
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\coffee_screen.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../app/app_colors.dart';
+import '../gen/assets.gen.dart';
+import '../widgets/categoery_taps.dart';
+import '../widgets/coffee_grid.dart';
+import '../widgets/promo_card.dart';
+
+class CoffeePage extends StatelessWidget {
+  const CoffeePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      body: ListView(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                height: 280.h,
+                width: double.infinity,
+                color: AppColors.darkGrey,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0.w,
+                    vertical: 60.h,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Location',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Bilzen, Tanjungbalai',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontFamily: Assets.fonts.soraBold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Icon(Icons.keyboard_arrow_down, color: Colors.white),
+                        ],
+                      ),
+                      SizedBox(height: 20.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: 52.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.grey[850]!,
+                                        Colors.grey[800]!,
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                  ),
+                                ),
+
+                                TextField(
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: 'Search coffee',
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey.shade500,
+                                    ),
+                                    prefixIcon: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: SvgPicture.asset(
+                                        colorFilter: ColorFilter.mode(
+                                          Colors.white,
+                                          BlendMode.srcIn,
+                                        ),
+                                        Assets
+                                            .icons
+                                            .typeRegularStateOutlineLibrarySearch,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            flex: 2,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primary,
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14.r),
+                                ),
+                              ),
+                              child: SvgPicture.asset(
+                                colorFilter: ColorFilter.mode(
+                                  Colors.white,
+                                  BlendMode.srcIn,
+                                ),
+                                Assets
+                                    .icons
+                                    .typeRegularStateOutlineLibraryFilter,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 220.h,
+                left: 30.w,
+                right: 30.w,
+                child: PromoCard(),
+              ),
+            ],
+          ),
+          SizedBox(height: 100.h),
+
+          const CategoryTabs(),
+          SizedBox(height: 24.h),
+
+          const CoffeeGrid(),
+          SizedBox(height: 20.h),
+        ],
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\details_screen.dart ---
+import 'package:coffee_shop/models/coffee_model.dart';
+import 'package:coffee_shop/screens/order_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:readmore/readmore.dart';
+
+import '../app/app_colors.dart';
+import '../gen/assets.gen.dart';
+import '../widgets/select_size_containers.dart';
+
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({super.key, required this.coffeeModel});
+
+  final CoffeeModel coffeeModel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.all(10.0.w),
+          child: IconButton(
+            icon: SvgPicture.asset(
+              Assets.icons.typeRegularStateOutlineLibraryArrowLeft2,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+        title: Text('Details of ${coffeeModel.name}'),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: SvgPicture.asset(
+              Assets.icons.typeRegularStateOutlineLibraryHeart,
+            ),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 202.h,
+              width: 327.w,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.r),
+                child: Image.asset(coffeeModel.imagePath, fit: BoxFit.cover),
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Text(
+              coffeeModel.name,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontFamily: Assets.fonts.soraExtraBold,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 2.h),
+            Row(
+              children: [
+                Text(
+                  coffeeModel.type,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    _buildInfoIcon(Assets.icons.icon.path),
+                    SizedBox(width: 12.w),
+                    _buildInfoIcon(Assets.icons.icon1.path),
+                    SizedBox(width: 12.w),
+                    _buildInfoIcon(Assets.icons.icon2.path),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.amber, size: 24),
+                    SizedBox(width: 4.w),
+                    Text(
+                      coffeeModel.rating.toString(),
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(width: 4.w),
+                    Text(
+                      '(230)',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Divider(color: Colors.grey.shade300, thickness: 1.h),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Description', style: theme.textTheme.titleLarge),
+                SizedBox(height: 12.h),
+                ReadMoreText(
+                  coffeeModel.description,
+                  trimMode: TrimMode.Line,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade600,
+                    height: 1.5,
+                  ),
+
+                  trimCollapsedText: ' Read More',
+                  moreStyle: const TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+
+                  trimExpandedText: ' Read Less',
+                  lessStyle: const TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            SelectSizeContainers(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 118.h,
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 20,
+              offset: const Offset(0, -10),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Price',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  '\$ ${coffeeModel.price.toStringAsFixed(2)}',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    color: AppColors.primary,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 217.w,
+              height: 56.h,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderScreen(coffee: coffeeModel),
+                    ),
+                  );
+                },
+                child: const Text('Buy Now'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget _buildInfoIcon(String iconPath) {
+  return Container(
+    padding: EdgeInsets.all(12.r),
+    decoration: BoxDecoration(
+      color: AppColors.lightGrey.withAlpha(50),
+      borderRadius: BorderRadius.circular(14.r),
+    ),
+    child: Image.asset(iconPath, height: 20.h),
+  );
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\favourite_screen.dart ---
+import 'package:flutter/material.dart';
+
+class FavouriteScreen extends StatelessWidget {
+  const FavouriteScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Text("favourite"));
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\home_screen.dart ---
+import 'package:coffee_shop/gen/assets.gen.dart';
+import 'package:coffee_shop/screens/cart_screen.dart';
+import 'package:coffee_shop/screens/coffee_screen.dart';
+import 'package:coffee_shop/screens/favourite_screen.dart';
+import 'package:coffee_shop/screens/notification_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../widgets/custom_nav_bar.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late PageController pageController;
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    pageController = PageController(initialPage: currentIndex);
+    super.initState();
+  }
+
+  void changeTap(int newIndex) {
+    setState(() {
+      currentIndex = newIndex;
+    });
+    }
+
+  List<Widget> screens = [
+    CoffeePage(),
+    FavouriteScreen(),
+    CartScreen(),
+    NotificationScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar:CustomNavBar(isActivate: currentIndex, pageController: pageController,),
+      body: PageView.builder(
+        itemBuilder: (context, index) => screens[index],
+        itemCount: screens.length,
+        controller: pageController,
+        onPageChanged: (index) => changeTap(index),
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\notification_screen.dart ---
+import 'package:flutter/material.dart';
+
+class   NotificationScreen extends StatelessWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Text("notification"),);
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\onboarding_screen.dart ---
+import 'package:coffee_shop/gen/assets.gen.dart';
+import 'package:coffee_shop/screens/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          Positioned.fill(child: Assets.images.a6.image(fit: BoxFit.cover)),
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.8),
+                    Colors.black,
+                  ],
+                  stops: const [0.5, 0.8, 1.0],
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 40.h,
+            left: 24.w,
+            right: 24.w,
+            child: Column(
+              children: [
+                Text(
+                  'Fall in Love with Coffee in Blissful Delight!',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineLarge?.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                Text(
+                  'Welcome to our cozy coffee corner, where every cup is a delightful for you.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                ),
+                SizedBox(height: 32.h),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  },
+                  child: const Text('Get Started'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\order_screen.dart ---
+import 'package:coffee_shop/models/coffee_model.dart';
+import 'package:coffee_shop/screens/tracking_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../app/app_colors.dart';
+import '../gen/assets.gen.dart';
+import '../widgets/action_button.dart';
+import '../widgets/delivery_toggle.dart';
+import '../widgets/discount_section.dart';
+import '../widgets/order_item_card.dart';
+import '../widgets/section_title.dart';
+
+class OrderScreen extends StatelessWidget {
+  final CoffeeModel coffee;
+
+  const OrderScreen({super.key, required this.coffee});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            Assets.icons.typeRegularStateOutlineLibraryArrowLeft2,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text('Order', style: Theme.of(context).textTheme.titleLarge),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 30.w),
+        physics: const BouncingScrollPhysics(),
+        children: [
+          SizedBox(height: 20.h),
+          const DeliveryToggle(),
+          SizedBox(height: 20.h),
+          const SectionTitle(title: 'Delivery Address'),
+          SizedBox(height: 16.h),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Jl. Kpg Sutoyo', style: theme.textTheme.titleMedium),
+              SizedBox(height: 8.h),
+              Text(
+                'Kpg. Sutoyo No. 620, Bilzen, Tanjungbalai.',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey.shade600,
+                ),
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                children: [
+                  ActionButton(
+                    icon: Assets.icons.editSquare,
+                    text: 'Edit Address',
+                  ),
+                  SizedBox(width: 12.w),
+                  ActionButton(icon: Assets.icons.note, text: 'Add Note'),
+                ],
+              ),
+            ],
+          ),
+          const Divider(height: 30, thickness: 1, color: AppColors.lightGrey),
+          OrderItem(coffee: coffee),
+          const Divider(height: 30, thickness: 1.5, color: AppColors.lightGrey),
+          const DiscountSection(),
+          SizedBox(height: 20.h),
+          const SectionTitle(title: 'Payment Summary'),
+          SizedBox(height: 16.h),
+          Column(
+            children: [
+              _buildSummaryRow(
+                'Price',
+                '\$ ${coffee.price.toStringAsFixed(2)}',
+              ),
+              SizedBox(height: 16.h),
+              _buildSummaryRow('Delivery Fee', '\$ 1.00'),
+              const Divider(height: 30, thickness: 1),
+              _buildSummaryRow(
+                'Total Payment',
+                '\$ ${(coffee.price + 1.0).toStringAsFixed(2)}',
+                isTotal: true,
+              ),
+            ],
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        height: 160.h,
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 16.h),
+        color: AppColors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset(
+                  Assets.icons.wallet,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.primary,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Cash / Wallet', style: theme.textTheme.titleSmall),
+                    SizedBox(width: 8.h),
+                    Text(
+                      '\$ ${(coffee.price + 1.0).toStringAsFixed(2)}',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    SizedBox(width: 8.h),
+                  ],
+                ),
+
+                const Spacer(),
+                const Icon(Icons.keyboard_arrow_down),
+              ],
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 55.h,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TrackingScreen(),
+                    ),
+                  );
+                },
+                child: const Text('Order'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget _buildSummaryRow(String title, String amount, {bool isTotal = false}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 14.sp,
+          color: isTotal ? AppColors.darkGrey : Colors.grey.shade600,
+          fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+      Text(
+        amount,
+        style: TextStyle(
+          fontSize: 14.sp,
+          color: isTotal ? AppColors.darkGrey : Colors.grey.shade600,
+          fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+    ],
+  );
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\screens\tracking_screen.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
+
+import '../app/app_colors.dart';
+import '../gen/assets.gen.dart';
+
+class TrackingScreen extends StatefulWidget {
+  const TrackingScreen({super.key});
+
+  @override
+  State<TrackingScreen> createState() => _TrackingScreenState();
+}
+
+class _TrackingScreenState extends State<TrackingScreen> {
+  LatLng initialCenter = LatLng(36.2133, 37.1345);
+  Position? _currentPosition;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _determinePosition();
+  }
+
+  Future<void> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() => _isLoading = false);
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() => _isLoading = false);
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      setState(() => _isLoading = false);
+      return;
+    }
+
+    try {
+      final position = await Geolocator.getCurrentPosition();
+      setState(() {
+        _currentPosition = position;
+        initialCenter = LatLng(position.latitude, position.longitude);
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isLoading = false);
+      print("Failed to get location: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            )
+          : Stack(
+              children: [
+                FlutterMap(
+                  options: MapOptions(
+                    initialCenter: initialCenter,
+                    initialZoom: 15.0,
+                  ),
+                  children: [
+                    TileLayer(
+                      urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      userAgentPackageName: 'com.example.coffee_shop',
+                    ),
+                  ],
+                ),
+                _buildTopUI(context),
+                _buildBottomUI(context),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildTopUI(BuildContext context) {
+    return Positioned(
+      top: 50.h,
+      left: 20.w,
+      right: 20.w,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _buildCircleButton(
+            icon: Assets.icons.typeRegularStateOutlineLibraryArrowLeft2,
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          _buildCircleButton(icon: Assets.icons.gps, onTap: () {}),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCircleButton({
+    required String icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(12.r),
+        decoration: const BoxDecoration(
+          color: AppColors.white,
+          shape: BoxShape.circle,
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
+        ),
+        child: SvgPicture.asset(icon, height: 24.h),
+      ),
+    );
+  }
+
+  Widget _buildBottomUI(BuildContext context) {
+    final theme = Theme.of(context);
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+        decoration: const BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 50.w,
+                height: 5.h,
+                decoration: BoxDecoration(
+                  color: AppColors.lightGrey,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Text('10 minutes left', style: theme.textTheme.titleMedium),
+            SizedBox(height: 4.h),
+            Row(
+              children: [
+                Text(
+                  'Delivery to ',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                Text(
+                  'Jl. Kpg Sutoyo',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.h),
+            LinearProgressIndicator(
+              value: 0.75,
+              backgroundColor: AppColors.lightGrey,
+              color: const Color(0xFF36C07E),
+              minHeight: 4.h,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            SizedBox(height: 20.h),
+            _buildStatusCard(theme),
+            SizedBox(height: 12.h),
+            _buildCourierCard(theme),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusCard(ThemeData theme) {
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: AppColors.lightGrey),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.all(12.r),
+            decoration: BoxDecoration(
+              color: AppColors.lightBrown,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: SvgPicture.asset(Assets.icons.icon.path, height: 24.h),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Delivered your order',
+                  style: theme.textTheme.titleMedium,
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  'We will deliver your goods to you in the shortest possible time.',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCourierCard(ThemeData theme) {
+    return Row(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(14.r),
+          child: Image.asset(
+            Assets.images.image.path,
+            width: 54.w,
+            height: 54.h,
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Brooklyn Simmons', style: theme.textTheme.titleMedium),
+            SizedBox(height: 4.h),
+            Text(
+              'Personal Courier',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+        const Spacer(),
+        Container(
+          padding: EdgeInsets.all(12.r),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.lightGrey),
+          ),
+          child: SvgPicture.asset(
+            Assets.icons.typeRegularStateOutlineLibraryCalling,
+            height: 24.h,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\action_button.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../app/app_colors.dart';
+
+class ActionButton extends StatelessWidget {
+  const ActionButton({super.key,required this.icon, required this.text});
+final String icon;
+final String text;
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: () {},
+      icon: SvgPicture.asset(icon, height: 20.h, colorFilter: const ColorFilter.mode(AppColors.darkGrey, BlendMode.srcIn)),
+      label: Text(text),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.darkGrey,
+        side: const BorderSide(color: AppColors.lightGrey),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\categoery_taps.dart ---
+
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../app/app_colors.dart';
+
+class CategoryTabs extends StatefulWidget {
+  const CategoryTabs();
+
+  @override
+  State<CategoryTabs> createState() => CategoryTabsState();
+}
+
+class CategoryTabsState extends State<CategoryTabs> {
+  final List<String> categories = ['All Coffee', 'Machiatto', 'Latte', 'Americano', 'Robusta'];
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 38.h,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 30.w),
+        itemCount: categories.length,
+        separatorBuilder: (context, index) => SizedBox(width: 5.w),
+        itemBuilder: (context, index) {
+          bool isSelected = _selectedIndex == index;
+          return ChoiceChip(
+            label: Text(categories[index]),
+            selected: isSelected,
+            onSelected: (selected) {
+              if (selected) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              }
+            },
+            backgroundColor: Colors.transparent,
+            selectedColor: AppColors.primary,
+            labelStyle: TextStyle(
+              color: isSelected ? Colors.white : AppColors.darkGrey,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              side: const BorderSide(color: Colors.transparent),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+          );
+        },
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\coffee_card.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../app/app_colors.dart';
+
+class CoffeeCard extends StatelessWidget {
+  final String imagePath;
+  final String name;
+  final String type;
+  final double price;
+  final double rating;
+
+  const CoffeeCard({
+    super.key,
+    required this.imagePath,
+    required this.name,
+    required this.type,
+    required this.price,
+    required this.rating,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: EdgeInsets.all(4.r),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12.r),
+                  child: Image.asset(
+                    imagePath,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.star, color: Colors.amber, size: 14),
+                        SizedBox(width: 4.w),
+                        Text(
+                          rating.toString(),
+                          style: theme.textTheme.bodySmall?.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Text(name, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          ),
+          SizedBox(height: 4.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Text(type, style: theme.textTheme.bodySmall),
+          ),
+          SizedBox(height: 12.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '\$ ${price.toStringAsFixed(2)}',
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.primary),
+                ),
+                SizedBox(
+                  width: 32.w,
+                  height: 32.h,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: const Icon(Icons.add, color: AppColors.white, size: 20),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 4.h),
+        ],
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\coffee_grid.dart ---
+import 'package:coffee_shop/gen/assets.gen.dart';
+import 'package:coffee_shop/models/coffee_model.dart';
+import 'package:coffee_shop/screens/details_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'coffee_card.dart';
+
+class CoffeeGrid extends StatelessWidget {
+  const CoffeeGrid({super.key});
+
+  static final List<CoffeeModel> _coffeeList = [
+    CoffeeModel(
+      imagePath: Assets.images.property1CoffeeProperty21.path,
+      name: 'Caffe Mocha',
+      type: 'Deep Foam',
+      price: 4.53,
+      rating: 4.8,
+      description:
+          'A Caffe Mocha is a rich, chocolate-flavored variant of a latte. It is made with espresso, steamed milk, and chocolate syrup, often topped with whipped cream.',
+    ),
+    CoffeeModel(
+      imagePath: Assets.images.property1CoffeeProperty22.path,
+      name: 'Flat White',
+      type: 'Espresso',
+      price: 3.53,
+      rating: 4.9,
+      description:
+          'A Flat White is an espresso-based coffee drink with steamed milk, originating from Australia and New Zealand. It is similar to a latte but with a higher coffee-to-milk ratio.',
+    ),
+    CoffeeModel(
+      imagePath: Assets.images.property1CoffeeProperty23.path,
+      name: 'Cappuccino',
+      type: 'Steamed Milk',
+      price: 4.20,
+      rating: 4.7,
+      description:
+          'A Cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85ml of fresh milk. The foam on top is a key characteristic.',
+    ),
+    CoffeeModel(
+      imagePath: Assets.images.property1CoffeeProperty24.path,
+      name: 'Americano',
+      type: 'Hot Water',
+      price: 3.10,
+      rating: 4.6,
+      description:
+          'An Americano is a type of coffee drink prepared by diluting an espresso with hot water, giving it a similar strength to, but different flavor from, traditionally brewed coffee.',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 15.w,
+        mainAxisSpacing: 15.h,
+        childAspectRatio: 0.72,
+      ),
+      itemCount: _coffeeList.length,
+      itemBuilder: (context, index) {
+        final coffeeItem = _coffeeList[index];
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailsScreen(coffeeModel: coffeeItem),
+              ),
+            );
+          },
+          child: CoffeeCard(
+            imagePath: coffeeItem.imagePath,
+            name: coffeeItem.name,
+            type: coffeeItem.type,
+            price: coffeeItem.price,
+            rating: coffeeItem.rating,
+          ),
+        );
+      },
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\custom_nav_bar.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../app/app_colors.dart';
+import '../gen/assets.gen.dart';
+
+class CustomNavBar extends StatelessWidget {
+  const CustomNavBar({super.key, required this.isActivate, required this.pageController});
+
+  final int isActivate;
+  final PageController pageController;
+
+@override
+  Widget build (BuildContext context) {
+    return NavigationBar(
+      destinations: [
+        IconButton(
+          onPressed:(){pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.ease);},
+          icon: SvgPicture.asset(
+            colorFilter: ColorFilter.mode(
+              isActivate == 0 ? AppColors.primary : Colors.grey.shade400,
+              BlendMode.srcIn,
+            ),
+           Assets.icons.typeRegularStateOutlineLibraryHome,
+          ),
+        ),
+        IconButton(
+          onPressed:(){pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.ease);},
+          icon: SvgPicture.asset(
+            colorFilter: ColorFilter.mode(
+              isActivate == 1 ? AppColors.primary : Colors.grey.shade400,
+              BlendMode.srcIn,
+            ),
+           Assets.icons.typeRegularStateOutlineLibraryHeart,
+          ),
+        ),
+        IconButton(
+          onPressed:(){pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.ease);},
+          icon: SvgPicture.asset(
+            colorFilter: ColorFilter.mode(
+              isActivate == 2 ? AppColors.primary : Colors.grey.shade400,
+              BlendMode.srcIn,
+            ),
+           Assets.icons.typeRegularStateOutlineLibraryBag,
+          ),
+        ),
+        IconButton(
+          onPressed:(){pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.ease);},
+          icon: SvgPicture.asset(
+            colorFilter: ColorFilter.mode(
+              isActivate == 3 ? AppColors.primary : Colors.grey.shade400,
+              BlendMode.srcIn,
+            ),
+           Assets.icons.typeRegularStateOutlineLibraryNotification,
+          ),
+        ),
+
+      ],
+    );
+  }}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\delivery_toggle.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../app/app_colors.dart';
+
+class DeliveryToggle extends StatefulWidget {
+  const DeliveryToggle({super.key});
+
+  @override
+  State<DeliveryToggle> createState() => DeliveryToggleState();
+}
+
+class DeliveryToggleState extends State<DeliveryToggle> {
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.lightGrey,
+        borderRadius: BorderRadius.circular(14.r),
+      ),
+      child: Row(
+        children: [
+          _buildToggleItem(0, 'Deliver'),
+          _buildToggleItem(1, 'Pick Up'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildToggleItem(int index, String text) {
+    bool isSelected = _selectedIndex == index;
+    return Expanded(
+      child: InkWell(
+        onTap: () => setState(() => _selectedIndex = index),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 12.h),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.primary : Colors.transparent,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: isSelected ? AppColors.white : AppColors.darkGrey,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\discount_section.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../app/app_colors.dart';
+import '../gen/assets.gen.dart';
+
+class DiscountSection extends StatelessWidget {
+  const DiscountSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: AppColors.lightGrey),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            Assets.icons.typeRegularStateOutlineLibraryDiscount,
+            colorFilter: const ColorFilter.mode(
+              AppColors.primary,
+              BlendMode.srcIn,
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Text(
+            '1 Discount is Applied',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const Spacer(),
+          const Icon(
+            Icons.arrow_forward_ios,
+            size: 18,
+            color: AppColors.darkGrey,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\order_item_card.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../app/app_colors.dart';
+import '../models/coffee_model.dart';
+
+class OrderItem extends StatefulWidget {
+  final CoffeeModel coffee;
+
+  const OrderItem({super.key, required this.coffee});
+
+  @override
+  State<OrderItem> createState() => OrderItemState();
+}
+class OrderItemState extends State<OrderItem> {
+  int _quantity = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12.r),
+          child: Image.asset(
+            widget.coffee.imagePath,
+            width: 54.w,
+            height: 54.h,
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.coffee.name, style: theme.textTheme.titleMedium),
+            SizedBox(height: 4.h),
+            Text(
+              widget.coffee.type,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: Colors.grey.shade500,
+              ),
+            ),
+          ],
+        ),
+        const Spacer(),
+        _buildQuantityButton(
+          icon: Icons.remove,
+          onTap: () {
+            if (_quantity > 1) setState(() => _quantity--);
+          },
+        ),
+        SizedBox(width: 12.w),
+        Text(_quantity.toString(), style: theme.textTheme.titleMedium),
+        SizedBox(width: 12.w),
+        _buildQuantityButton(
+          icon: Icons.add,
+          onTap: () => setState(() => _quantity++),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuantityButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(4.r),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: AppColors.lightGrey),
+        ),
+        child: Icon(icon, size: 16.sp, color: AppColors.darkGrey),
+      ),
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\promo_card.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../gen/assets.gen.dart';
+
+class PromoCard extends StatelessWidget {
+  const PromoCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16.r),
+      child: Stack(
+        children: [
+          Assets.images.banner1.image(
+            width: double.infinity,
+            height: 140.h,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            width: double.infinity,
+            height: 140.h,
+            color: Colors.black.withOpacity(0.15),
+          ),
+          Positioned(
+            top: 15.h,
+            left: 24.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Text(
+                    'Promo',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8.h),
+
+                const TextWithBackground(
+                  text: 'Buy one get',
+                  style: TextStyle(
+                    color: Colors.transparent,
+                    fontFamily: 'Sora',
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    height: 1.1,
+                  ),
+                ),
+                const TextWithBackground(
+                  text: 'one FREE',
+                  style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.transparent,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    height: 1.1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+}
+class TextWithBackground extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final Color backgroundColor;
+
+  const TextWithBackground({
+    super.key,
+    required this.text,
+    required this.style,
+    this.backgroundColor = Colors.black,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(alignment: Alignment.center,
+      children: [
+        Padding(
+          padding:  EdgeInsets.only(top: 20.h),
+          child: Container(height: 20.h,
+            color: backgroundColor,
+            child: Text(text, style: style,),
+          ),
+        ),
+        Text(text, style: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Sora',
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          height: 1.1,
+        ),),
+      ],
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\section_title.dart ---
+import 'package:flutter/material.dart';
+
+class SectionTitle extends StatelessWidget {
+  final String title;
+  const SectionTitle({required this.title});
+  @override
+  Widget build(BuildContext context) {
+    return Text(title, style: Theme.of(context).textTheme.titleLarge);
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\widgets\select_size_containers.dart ---
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../app/app_colors.dart';
+
+class SelectSizeContainers extends StatefulWidget {
+  const SelectSizeContainers({super.key});
+
+  @override
+  State<SelectSizeContainers> createState() => _SelectSizeContainersState();
+}
+
+class _SelectSizeContainersState extends State<SelectSizeContainers> {
+  List<String> sizes =["S","M","L"];
+  int _selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Size', style: Theme.of(context).textTheme.titleLarge),
+        SizedBox(height: 12.h),
+        Row(
+          children: List.generate(sizes.length, (index) {
+            bool isSelected = _selectedIndex == index;
+            return Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 6.w),
+                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.primary.withOpacity(0.15)
+                        : AppColors.white,
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColors.primary
+                          : Colors.grey.shade300,
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      sizes[index],
+                      style: Theme.of(context).textTheme.bodyLarge
+                          ?.copyWith(
+                        color: isSelected
+                            ? AppColors.primary
+                            : AppColors.darkGrey,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ],
+    );
+  }
+}
+
+--- FILE: C:\Users\KA\StudioProjects\coffee_shop\lib\main.dart ---
+import 'package:flutter/material.dart';
+
+import 'app/app.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+//coffee
+
