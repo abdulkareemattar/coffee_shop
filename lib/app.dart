@@ -5,6 +5,8 @@ import 'core/di/injection.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'presentation/manager/cubit/favorites_cubit.dart';
+import 'presentation/manager/cubit/auth/auth_cubit.dart';
+import 'presentation/manager/cubit/products/products_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,8 +15,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>().router;
 
-    return BlocProvider(
-      create: (context) => getIt<FavoritesCubit>()..loadFavorites(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<FavoritesCubit>()..loadFavorites(),
+        ),
+        BlocProvider(create: (context) => getIt<AuthCubit>()),
+        BlocProvider(
+          create: (context) => getIt<ProductsCubit>()..loadProducts(),
+        ),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

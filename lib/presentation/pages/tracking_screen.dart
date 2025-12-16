@@ -17,7 +17,6 @@ class TrackingScreen extends StatefulWidget {
 
 class _TrackingScreenState extends State<TrackingScreen> {
   LatLng initialCenter = LatLng(36.2133, 37.1345);
-  Position? _currentPosition;
   bool _isLoading = true;
 
   @override
@@ -53,7 +52,6 @@ class _TrackingScreenState extends State<TrackingScreen> {
     try {
       final position = await Geolocator.getCurrentPosition();
       setState(() {
-        _currentPosition = position;
         initialCenter = LatLng(position.latitude, position.longitude);
         _isLoading = false;
       });

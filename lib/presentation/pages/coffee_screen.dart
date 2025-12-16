@@ -1,8 +1,11 @@
+import 'package:coffee_shop/presentation/manager/cubit/products/products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:coffee_shop/core/utils/app_colors.dart';
 import 'package:coffee_shop/gen/assets.gen.dart';
+import 'package:coffee_shop/presentation/manager/cubit/products/products_cubit.dart';
 
 import '../widgets/categoery_taps.dart';
 import '../widgets/coffee_grid.dart';
@@ -148,7 +151,14 @@ class CoffeePage extends StatelessWidget {
           const CategoryTabs(),
           SizedBox(height: 24.h),
 
-          const CoffeeGrid(),
+          BlocBuilder<ProductsCubit, ProductsState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (coffees) => CoffeeGrid(coffeeList: coffees),
+                orElse: () => const CoffeeGrid(coffeeList: []),
+              );
+            },
+          ),
           SizedBox(height: 20.h),
         ],
       ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import '../../data/models/coffee_model.dart';
+import '../../presentation/pages/auth/login_screen.dart';
+import '../../presentation/pages/auth/register_screen.dart';
 import '../../presentation/pages/cart_screen.dart';
 import '../../presentation/pages/coffee_screen.dart';
 import '../../presentation/pages/details_screen.dart';
@@ -25,6 +27,20 @@ class AppRouter {
         path: '/onboarding',
         name: 'onboarding',
         builder: (context, state) => OnboardingScreen(),
+      ),
+
+      // Login
+      GoRoute(
+        path: '/login',
+        name: 'login',
+        builder: (context, state) => const LoginScreen(),
+      ),
+
+      // Register
+      GoRoute(
+        path: '/register',
+        name: 'register',
+        builder: (context, state) => const RegisterScreen(),
       ),
 
       // Home
@@ -117,6 +133,8 @@ class AppRouter {
 // Route names for easy access
 class Routes {
   static const String onboarding = '/onboarding';
+  static const String login = '/login';
+  static const String register = '/register';
   static const String home = '/home';
   static const String coffee = '/coffee';
   static const String details = '/details';
