@@ -1,5 +1,4 @@
 import '../../domain/entities/order.dart';
-import '../../domain/entities/cart_item.dart';
 import 'cart_item_model.dart';
 
 class OrderModel extends Order {

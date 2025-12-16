@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../domain/entities/order.dart' as domain;
 import '../../../../domain/usecases/create_order_usecase.dart';
 import '../../../../domain/usecases/get_user_orders_usecase.dart';
-import '../../../../domain/usecases/get_order_by_id_usecase.dart';
+// import '../../../../domain/usecases/get_order_by_id_usecase.dart'; // Reserved for future use
 import '../../../../domain/usecases/update_order_status_usecase.dart';
 import '../../../../domain/usecases/cancel_order_usecase.dart';
 import 'orders_state.dart';
@@ -12,14 +12,14 @@ import 'orders_state.dart';
 class OrdersCubit extends Cubit<OrdersState> {
   final CreateOrderUseCase _createOrderUseCase;
   final GetUserOrdersUseCase _getUserOrdersUseCase;
-  final GetOrderByIdUseCase _getOrderByIdUseCase;
+  // final GetOrderByIdUseCase _getOrderByIdUseCase; // Reserved for future use
   final UpdateOrderStatusUseCase _updateOrderStatusUseCase;
   final CancelOrderUseCase _cancelOrderUseCase;
 
   OrdersCubit(
     this._createOrderUseCase,
     this._getUserOrdersUseCase,
-    this._getOrderByIdUseCase,
+    // this._getOrderByIdUseCase, // Reserved for future use
     this._updateOrderStatusUseCase,
     this._cancelOrderUseCase,
   ) : super(const OrdersState.initial());
@@ -50,27 +50,25 @@ class OrdersCubit extends Cubit<OrdersState> {
   Future<void> updateOrderStatus(
     String orderId,
     domain.OrderStatus status,
+    String userId,
   ) async {
     try {
       await _updateOrderStatusUseCase(orderId, status);
       // Reload orders after updating
-      final currentState = state;
-      if (currentState is _Loaded) {
-        // Find the order and update it, or reload
-        await loadUserOrders(''); // You need to pass userId
+      if (userId.isNotEmpty) {
+        await loadUserOrders(userId);
       }
     } catch (e) {
       emit(OrdersState.error(message: e.toString()));
     }
   }
 
-  Future<void> cancelOrder(String orderId) async {
+  Future<void> cancelOrder(String orderId, String userId) async {
     try {
       await _cancelOrderUseCase(orderId);
       // Reload orders after canceling
-      final currentState = state;
-      if (currentState is _Loaded) {
-        await loadUserOrders(''); // You need to pass userId
+      if (userId.isNotEmpty) {
+        await loadUserOrders(userId);
       }
     } catch (e) {
       emit(OrdersState.error(message: e.toString()));

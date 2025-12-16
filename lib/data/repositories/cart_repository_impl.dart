@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/cart_item.dart';
 import '../../domain/repositories/cart_repository.dart';
-import '../datasources/database_helper.dart';
 
 @LazySingleton(as: CartRepository)
 class CartRepositoryImpl implements CartRepository {

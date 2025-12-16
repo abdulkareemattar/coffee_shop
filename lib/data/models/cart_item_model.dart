@@ -1,5 +1,4 @@
 import '../../domain/entities/cart_item.dart';
-import '../../domain/entities/product.dart';
 import 'product_model.dart';
 
 class CartItemModel extends CartItem {

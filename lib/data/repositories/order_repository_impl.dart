@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/order.dart' as domain;
 import '../../domain/repositories/order_repository.dart';
-import '../models/order_model.dart';
 // In a real app, you would have an OrderApiClient here
 
 @LazySingleton(as: OrderRepository)

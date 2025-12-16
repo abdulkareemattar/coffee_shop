@@ -93,7 +93,13 @@ class AuthCubit extends HydratedCubit<AuthState> {
 
   @override
   AuthState? fromJson(Map<String, dynamic> json) {
-    return AuthState.fromJson(json);
+    // The fromJson method is generated in auth_cubit.freezed.dart
+    // We need to use the generated function directly
+    try {
+      return _$AuthStateFromJson(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   @override

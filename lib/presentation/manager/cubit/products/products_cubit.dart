@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../domain/entities/product.dart';
 import '../../../../domain/usecases/get_products_usecase.dart';
 import '../../../../domain/usecases/get_products_by_category_usecase.dart';
 import '../../../../domain/usecases/search_products_usecase.dart';
