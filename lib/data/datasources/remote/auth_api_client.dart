@@ -13,4 +13,7 @@ abstract class AuthApiClient {
 
   @POST('/api/user/auth/register')
   Future<AuthResponse> register(@Body() RegisterRequest request);
+
+  @GET('/api/user/current-user')
+  Future<AuthResponse> getCurrentUser();
 }

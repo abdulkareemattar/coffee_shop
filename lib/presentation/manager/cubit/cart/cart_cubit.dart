@@ -40,7 +40,20 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> addToCart(CartItem item) async {
     try {
-      await _addToCartUseCase(item);
+      final items = await _getCartItemsUseCase();
+      final existingItemIndex = items.indexWhere(
+        (i) => i.product.id == item.product.id && i.size == item.size,
+      );
+
+      if (existingItemIndex != -1) {
+        final existingItem = items[existingItemIndex];
+        await _updateCartItemQuantityUseCase(
+          existingItem.id,
+          existingItem.quantity + item.quantity,
+        );
+      } else {
+        await _addToCartUseCase(item);
+      }
       await loadCart();
     } catch (e) {
       emit(CartState.error(message: e.toString()));
@@ -74,4 +87,3 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 }
-

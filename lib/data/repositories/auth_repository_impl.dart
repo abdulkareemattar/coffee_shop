@@ -85,12 +85,26 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<User?> getCurrentUser() async {
-    final token = await _secureStorage.read(key: 'auth_token');
-    if (token == null) return null;
+    try {
+      final token = await _secureStorage.read(key: 'auth_token');
+      if (token == null) return null;
 
-    // In a real app, you would fetch user data from API using the token
-    // For now, return null as we don't have a getCurrentUser endpoint
-    return null;
+      final response = await _authApiClient.getCurrentUser();
+
+      if (response.user != null) {
+        return UserModel(
+          id: response.user!.id,
+          firstName: response.user!.firstName,
+          lastName: response.user!.lastName,
+          email: response.user!.email,
+          role: response.user!.role,
+          token: token,
+        );
+      }
+      return null;
+    } catch (e) {
+      // If fetching user fails (e.g., token expired), return null
+      return null;
+    }
   }
 }
-

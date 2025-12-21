@@ -6,11 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../widgets/action_button.dart';
-import '../widgets/delivery_toggle.dart';
-import '../widgets/discount_section.dart';
-import '../widgets/order_item_card.dart';
-import '../widgets/section_title.dart';
+import 'widgets/action_button.dart';
+import 'widgets/delivery_toggle.dart';
+import 'widgets/discount_section.dart';
+import 'widgets/order_item_card.dart';
+import 'widgets/section_title.dart';
 
 class OrderScreen extends StatelessWidget {
   final CoffeeModel coffee;

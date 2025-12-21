@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:coffee_shop/core/widgets/custom_network_image.dart';
 
 import 'package:coffee_shop/core/utils/app_colors.dart';
 
@@ -9,6 +10,7 @@ class CoffeeCard extends StatelessWidget {
   final String type;
   final double price;
   final double rating;
+  final VoidCallback? onAddTap;
 
   const CoffeeCard({
     super.key,
@@ -17,6 +19,7 @@ class CoffeeCard extends StatelessWidget {
     required this.type,
     required this.price,
     required this.rating,
+    this.onAddTap,
   });
 
   @override
@@ -43,8 +46,8 @@ class CoffeeCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
-                  child: Image.asset(
-                    imagePath,
+                  child: CustomNetworkImage(
+                    imageUrl: imagePath,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -114,7 +117,7 @@ class CoffeeCard extends StatelessWidget {
                   width: 32.w,
                   height: 32.h,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: onAddTap,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(

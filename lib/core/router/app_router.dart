@@ -1,26 +1,67 @@
+import 'dart:async';
+import 'package:coffee_shop/presentation/pages/home/home_screen.dart';
+import 'package:coffee_shop/presentation/pages/notification/notification_screen.dart';
+import 'package:coffee_shop/presentation/pages/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import '../../data/models/coffee_model.dart';
+import '../../presentation/manager/cubit/auth/auth_cubit.dart';
 import '../../presentation/pages/auth/login_screen.dart';
 import '../../presentation/pages/auth/register_screen.dart';
-import '../../presentation/pages/cart_screen.dart';
-import '../../presentation/pages/coffee_screen.dart';
-import '../../presentation/pages/details_screen.dart';
-import '../../presentation/pages/favorites_screen.dart';
-import '../../presentation/pages/home_screen.dart';
-import '../../presentation/pages/notification_screen.dart';
-import '../../presentation/pages/onboarding_screen.dart';
-import '../../presentation/pages/order_screen.dart';
-import '../../presentation/pages/tracking_screen.dart';
+import '../../presentation/pages/cart/cart_screen.dart';
+import '../../presentation/pages/coffee/coffee_screen.dart';
+import '../../presentation/pages/details/details_screen.dart';
+import '../../presentation/pages/favorites/favorites_screen.dart';
+import '../../presentation/pages/order/order_screen.dart';
+import '../../presentation/pages/tracking/tracking_screen.dart';
 
 @lazySingleton
 class AppRouter {
+  final AuthCubit _authCubit;
+
+  AppRouter(this._authCubit);
+
   GoRouter get router => _router;
 
-  final GoRouter _router = GoRouter(
+  late final GoRouter _router = GoRouter(
     initialLocation: '/onboarding',
     debugLogDiagnostics: true,
+    refreshListenable: _AuthRefreshNotifier(_authCubit),
+    redirect: (context, state) {
+      final authState = _authCubit.state;
+
+      final isAuthenticated = authState.maybeWhen(
+        authenticated: (_) => true,
+        orElse: () => false,
+      );
+
+      final isOnboardingPage = state.uri.path == '/onboarding';
+      final isLoginPage = state.uri.path == '/login';
+      final isRegisterPage = state.uri.path == '/register';
+      final isAuthPage = isLoginPage || isRegisterPage;
+
+      // If on onboarding page, check auth status and redirect accordingly
+      if (isOnboardingPage) {
+        if (isAuthenticated) {
+          return '/home';
+        }
+        // Let onboarding page handle navigation to login
+        return null;
+      }
+
+      // If user is authenticated and trying to access auth pages, redirect to home
+      if (isAuthenticated && isAuthPage) {
+        return '/home';
+      }
+
+      // If user is not authenticated and trying to access protected pages, redirect to login
+      if (!isAuthenticated && !isAuthPage && !isOnboardingPage) {
+        return '/login';
+      }
+
+      return null; // No redirect needed
+    },
     routes: [
       // Onboarding
       GoRoute(
@@ -143,4 +184,22 @@ class Routes {
   static const String notifications = '/notifications';
   static const String order = '/order';
   static const String tracking = '/tracking';
+}
+
+// Helper class to listen to AuthCubit state changes
+class _AuthRefreshNotifier extends ChangeNotifier {
+  final AuthCubit _authCubit;
+  late final StreamSubscription _subscription;
+
+  _AuthRefreshNotifier(this._authCubit) {
+    _subscription = _authCubit.stream.listen((_) {
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
 }

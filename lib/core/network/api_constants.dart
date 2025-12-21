@@ -6,8 +6,8 @@ class ApiConstants {
   static const String apiVersion = '/api/v1';
 
   // Timeout
-  static const Duration connectTimeout = Duration(seconds: 30);
-  static const Duration receiveTimeout = Duration(seconds: 30);
+  static const Duration connectTimeout = Duration(seconds: 15);
+  static const Duration receiveTimeout = Duration(seconds: 15);
 
   // Auth Endpoints
   static const String register = '/api/user/auth/register';

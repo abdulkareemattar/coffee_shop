@@ -39,6 +39,7 @@ import '../../domain/usecases/get_cart_items_usecase.dart' as _i237;
 import '../../domain/usecases/get_cart_total_usecase.dart' as _i303;
 import '../../domain/usecases/get_categories_usecase.dart' as _i943;
 import '../../domain/usecases/get_category_by_id_usecase.dart' as _i626;
+import '../../domain/usecases/get_current_user_usecase.dart' as _i771;
 import '../../domain/usecases/get_favorites_usecase.dart' as _i520;
 import '../../domain/usecases/get_order_by_id_usecase.dart' as _i141;
 import '../../domain/usecases/get_product_by_id_usecase.dart' as _i705;
@@ -76,7 +77,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => networkModule.secureStorage,
     );
-    gh.lazySingleton<_i81.AppRouter>(() => _i81.AppRouter());
     gh.lazySingleton<_i46.CartRepository>(() => _i915.CartRepositoryImpl());
     gh.lazySingleton<_i507.OrderRepository>(() => _i717.OrderRepositoryImpl());
     gh.lazySingleton<_i361.Dio>(
@@ -191,6 +191,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i959.CheckAuthStatusUseCase>(
       () => _i959.CheckAuthStatusUseCase(gh<_i1073.AuthRepository>()),
     );
+    gh.lazySingleton<_i771.GetCurrentUserUseCase>(
+      () => _i771.GetCurrentUserUseCase(gh<_i1073.AuthRepository>()),
+    );
     gh.lazySingleton<_i253.LoginUseCase>(
       () => _i253.LoginUseCase(gh<_i1073.AuthRepository>()),
     );
@@ -199,6 +202,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i35.RegisterUseCase>(
       () => _i35.RegisterUseCase(gh<_i1073.AuthRepository>()),
+    );
+    gh.factory<_i748.AuthCubit>(
+      () => _i748.AuthCubit(
+        gh<_i253.LoginUseCase>(),
+        gh<_i35.RegisterUseCase>(),
+        gh<_i981.LogoutUseCase>(),
+        gh<_i959.CheckAuthStatusUseCase>(),
+        gh<_i771.GetCurrentUserUseCase>(),
+      ),
     );
     gh.lazySingleton<_i943.GetCategoriesUseCase>(
       () => _i943.GetCategoriesUseCase(gh<_i485.CategoryRepository>()),
@@ -218,13 +230,8 @@ extension GetItInjectableX on _i174.GetIt {
         toggleFavoriteUseCase: gh<_i308.ToggleFavoriteUseCase>(),
       ),
     );
-    gh.factory<_i748.AuthCubit>(
-      () => _i748.AuthCubit(
-        gh<_i253.LoginUseCase>(),
-        gh<_i35.RegisterUseCase>(),
-        gh<_i981.LogoutUseCase>(),
-        gh<_i959.CheckAuthStatusUseCase>(),
-      ),
+    gh.lazySingleton<_i81.AppRouter>(
+      () => _i81.AppRouter(gh<_i748.AuthCubit>()),
     );
     return this;
   }

@@ -11,11 +11,45 @@ part of 'products_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+ProductsState _$ProductsStateFromJson(
+  Map<String, dynamic> json
+) {
+        switch (json['runtimeType']) {
+                  case 'initial':
+          return _Initial.fromJson(
+            json
+          );
+                case 'loading':
+          return _Loading.fromJson(
+            json
+          );
+                case 'loaded':
+          return _Loaded.fromJson(
+            json
+          );
+                case 'error':
+          return _Error.fromJson(
+            json
+          );
+        
+          default:
+            throw CheckedFromJsonException(
+  json,
+  'runtimeType',
+  'ProductsState',
+  'Invalid union type "${json['runtimeType']}"!'
+);
+        }
+      
+}
+
 /// @nodoc
 mixin _$ProductsState {
 
 
 
+  /// Serializes this ProductsState to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -23,7 +57,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductsState);
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => runtimeType.hashCode;
 
@@ -190,23 +224,30 @@ return error(_that.message);case _:
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Initial implements ProductsState {
-  const _Initial();
-  
+  const _Initial({final  String? $type}): $type = $type ?? 'initial';
+  factory _Initial.fromJson(Map<String, dynamic> json) => _$InitialFromJson(json);
 
 
 
+@JsonKey(name: 'runtimeType')
+final String $type;
 
 
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InitialToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => runtimeType.hashCode;
 
@@ -222,23 +263,30 @@ String toString() {
 
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Loading implements ProductsState {
-  const _Loading();
-  
+  const _Loading({final  String? $type}): $type = $type ?? 'loading';
+  factory _Loading.fromJson(Map<String, dynamic> json) => _$LoadingFromJson(json);
 
 
 
+@JsonKey(name: 'runtimeType')
+final String $type;
 
 
+
+@override
+Map<String, dynamic> toJson() {
+  return _$LoadingToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => runtimeType.hashCode;
 
@@ -254,11 +302,11 @@ String toString() {
 
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Loaded implements ProductsState {
-  const _Loaded({required final  List<CoffeeModel> coffees}): _coffees = coffees;
-  
+  const _Loaded({required final  List<CoffeeModel> coffees, final  String? $type}): _coffees = coffees,$type = $type ?? 'loaded';
+  factory _Loaded.fromJson(Map<String, dynamic> json) => _$LoadedFromJson(json);
 
  final  List<CoffeeModel> _coffees;
  List<CoffeeModel> get coffees {
@@ -268,20 +316,27 @@ class _Loaded implements ProductsState {
 }
 
 
+@JsonKey(name: 'runtimeType')
+final String $type;
+
+
 /// Create a copy of ProductsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$LoadedToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._coffees, _coffees));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_coffees));
 
@@ -326,13 +381,17 @@ as List<CoffeeModel>,
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Error implements ProductsState {
-  const _Error({required this.message});
-  
+  const _Error({required this.message, final  String? $type}): $type = $type ?? 'error';
+  factory _Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
 
  final  String message;
+
+@JsonKey(name: 'runtimeType')
+final String $type;
+
 
 /// Create a copy of ProductsState
 /// with the given fields replaced by the non-null parameter values.
@@ -340,14 +399,17 @@ class _Error implements ProductsState {
 @pragma('vm:prefer-inline')
 _$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$ErrorToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.message, message) || other.message == message));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,message);
 

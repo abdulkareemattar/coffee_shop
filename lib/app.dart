@@ -6,7 +6,10 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'presentation/manager/cubit/favorites_cubit.dart';
 import 'presentation/manager/cubit/auth/auth_cubit.dart';
+import 'presentation/manager/cubit/cart/cart_cubit.dart';
+
 import 'presentation/manager/cubit/products/products_cubit.dart';
+import 'presentation/manager/cubit/categories/categories_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -21,8 +24,12 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<FavoritesCubit>()..loadFavorites(),
         ),
         BlocProvider(create: (context) => getIt<AuthCubit>()),
+        BlocProvider(create: (context) => getIt<CartCubit>()..loadCart()),
         BlocProvider(
           create: (context) => getIt<ProductsCubit>()..loadProducts(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CategoriesCubit>()..loadCategories(),
         ),
       ],
       child: ScreenUtilInit(

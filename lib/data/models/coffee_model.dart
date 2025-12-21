@@ -32,10 +32,20 @@ class CoffeeModel extends Coffee {
       name: map['name'],
       imagePath:
           map['imagePath'], // CORRECTED: Was 'image', now matches the database column.
-      type: '', // Not stored in DB
-      price: map['price'],
-      rating: 0.0, // Not stored in DB
-      description: map['description'],
+      type: map['type'] ?? '',
+      price: (map['price'] as num).toDouble(),
+      rating: (map['rating'] as num?)?.toDouble() ?? 0.0,
+      description: map['description'] ?? '',
     );
+  }
+
+  factory CoffeeModel.fromJson(Map<String, dynamic> json) =>
+      CoffeeModel.fromMap(json);
+
+  Map<String, dynamic> toJson() {
+    final map = toMap();
+    map['type'] = type;
+    map['rating'] = rating;
+    return map;
   }
 }

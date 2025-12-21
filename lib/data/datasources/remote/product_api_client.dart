@@ -9,7 +9,7 @@ abstract class ProductApiClient {
   factory ProductApiClient(Dio dio, {String baseUrl}) = _ProductApiClient;
 
   @GET('/api/v1/products')
-  Future<List<ProductResponse>> getProducts();
+  Future<ProductsListResponse> getProducts();
 
   @GET('/api/v1/products/{id}')
   Future<ProductResponse> getProductById(@Path('id') String id);

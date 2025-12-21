@@ -41,10 +41,10 @@ class CoffeeRepositoryImpl implements CoffeeRepository {
   // Example: Fetch products from backend
   Future<List<Coffee>> getProductsFromBackend() async {
     try {
-      final products = await _productApiClient.getProducts();
+      final response = await _productApiClient.getProducts();
 
       // Convert ProductResponse to Coffee entity
-      return products
+      return response.products
           .map(
             (product) => Coffee(
               id: int.tryParse(product.id) ?? 0,
@@ -52,7 +52,7 @@ class CoffeeRepositoryImpl implements CoffeeRepository {
               name: product.name,
               type: '', // You may need to add category info
               price: product.price,
-              rating: 0.0, // Add rating if available
+              rating: product.rating ?? 0.0,
               description: product.description,
             ),
           )

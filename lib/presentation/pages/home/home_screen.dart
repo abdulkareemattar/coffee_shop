@@ -1,10 +1,10 @@
-import 'package:coffee_shop/presentation/pages/cart_screen.dart';
-import 'package:coffee_shop/presentation/pages/coffee_screen.dart';
-import 'package:coffee_shop/presentation/pages/favorites_screen.dart';
-import 'package:coffee_shop/presentation/pages/notification_screen.dart';
+import 'package:coffee_shop/presentation/pages/cart/cart_screen.dart';
+import 'package:coffee_shop/presentation/pages/coffee/coffee_screen.dart';
+import 'package:coffee_shop/presentation/pages/favorites/favorites_screen.dart';
+import 'package:coffee_shop/presentation/pages/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_nav_bar.dart';
+import 'widgets/custom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,132 +1,14 @@
-import 'package:coffee_shop/core/utils/app_colors.dart';
-import 'package:coffee_shop/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:go_router/go_router.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:coffee_shop/core/utils/app_colors.dart';
+import 'package:coffee_shop/gen/assets.gen.dart';
 
-class TrackingScreen extends StatefulWidget {
-  const TrackingScreen({super.key});
-
-  @override
-  State<TrackingScreen> createState() => _TrackingScreenState();
-}
-
-class _TrackingScreenState extends State<TrackingScreen> {
-  LatLng initialCenter = LatLng(36.2133, 37.1345);
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _determinePosition();
-  }
-
-  Future<void> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      setState(() => _isLoading = false);
-      return;
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        setState(() => _isLoading = false);
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      setState(() => _isLoading = false);
-      return;
-    }
-
-    try {
-      final position = await Geolocator.getCurrentPosition();
-      setState(() {
-        initialCenter = LatLng(position.latitude, position.longitude);
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() => _isLoading = false);
-      print("Failed to get location: $e");
-    }
-  }
+class TrackingBottomUI extends StatelessWidget {
+  const TrackingBottomUI({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(color: AppColors.primary),
-            )
-          : Stack(
-              children: [
-                FlutterMap(
-                  options: MapOptions(
-                    initialCenter: initialCenter,
-                    initialZoom: 15.0,
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate:
-                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                      userAgentPackageName: 'com.example.coffee_shop',
-                    ),
-                  ],
-                ),
-                _buildTopUI(context),
-                _buildBottomUI(context),
-              ],
-            ),
-    );
-  }
-
-  Widget _buildTopUI(BuildContext context) {
-    return Positioned(
-      top: 50.h,
-      left: 20.w,
-      right: 20.w,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildCircleButton(
-            icon: Assets.icons.typeRegularStateOutlineLibraryArrowLeft2,
-            onTap: () => context.pop(),
-          ),
-          _buildCircleButton(icon: Assets.icons.gps, onTap: () {}),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCircleButton({
-    required String icon,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(12.r),
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          shape: BoxShape.circle,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
-        ),
-        child: SvgPicture.asset(icon, height: 24.h),
-      ),
-    );
-  }
-
-  Widget _buildBottomUI(BuildContext context) {
     final theme = Theme.of(context);
     return Positioned(
       bottom: 0,
