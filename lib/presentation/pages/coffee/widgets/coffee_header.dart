@@ -1,3 +1,4 @@
+import 'package:coffee_shop/presentation/manager/cubit/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,32 +55,70 @@ class _CoffeeHeaderState extends State<CoffeeHeader> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       height: 280.h,
       width: double.infinity,
-      color: AppColors.darkGrey,
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF131313) : AppColors.darkGrey,
+        gradient: isDark
+            ? const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFF131313), Color(0xFF202020)],
+              )
+            : null,
+      ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40.0.w, vertical: 60.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Location',
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: Colors.grey.shade400,
-              ),
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Bilzen, Tanjungbalai',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontFamily: Assets.fonts.soraBold,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Location',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Bilzen, Tanjungbalai',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontFamily: Assets.fonts.soraBold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                // Theme Toggle Button
+                IconButton(
+                  onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+                  icon: Icon(
+                    isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
                     color: Colors.white,
                   ),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white.withOpacity(0.1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                  ),
                 ),
-                const Icon(Icons.keyboard_arrow_down, color: Colors.white),
               ],
             ),
             SizedBox(height: 20.h),

@@ -128,6 +128,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Wallet.svg
   String get wallet => 'assets/icons/Wallet.svg';
 
+  /// File path: assets/icons/app_icon.png
+  AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.png');
+
   /// File path: assets/icons/gps.svg
   String get gps => 'assets/icons/gps.svg';
 
@@ -153,6 +156,7 @@ class $AssetsIconsGen {
     typeRegularStateOutlineLibrarySearch,
     typeRegularStateOutlineLibraryStar,
     wallet,
+    appIcon,
     gps,
   ];
 }

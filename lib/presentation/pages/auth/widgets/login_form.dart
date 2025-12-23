@@ -7,12 +7,14 @@ class LoginForm extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
+  final bool isDark;
 
   const LoginForm({
     super.key,
     required this.emailController,
     required this.passwordController,
     required this.formKey,
+    this.isDark = false,
   });
 
   @override
@@ -24,19 +26,7 @@ class _LoginFormState extends State<LoginForm> {
 
   void _submitForm() {
     if (widget.formKey.currentState!.validate()) {
-      FocusScope.of(context).unfocus(); // Close keyboard
-      // The parent widget handles the actual login logic through the button callback
-      // We can also expose a specific callback for form submission if needed,
-      // but for now relying on the parent's button logic is okay if we trigger it manually
-      // However, since the parent holds the logic in the button's onPressed,
-      // we need a way to trigger it.
-      // Best practice refactor: The parent should pass a 'onLogin' callback that takes email/pass.
-      // But adhering to current structure where parent reads controllers:
-      // We just ensure validation passes here.
-      // The "Done" action usually triggers the primary action.
-      // We'll leave the actual "triggering" to the button for now to avoid refactoring the parent significantly yet,
-      // OR we can make the parent pass a callback.
-      // Let's stick to improving the UX *within* the form fields first.
+      FocusScope.of(context).unfocus();
     }
   }
 
@@ -49,6 +39,7 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           CustomTextField(
             controller: widget.emailController,
+            isDark: widget.isDark,
             labelText: 'Email',
             hintText: 'Enter your email',
             prefixIcon: Icons.email_outlined,
@@ -59,7 +50,6 @@ class _LoginFormState extends State<LoginForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
               }
-              // Basic email validation regex
               final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
               if (!emailRegex.hasMatch(value)) {
                 return 'Please enter a valid email';
@@ -70,14 +60,14 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 24.h),
           CustomTextField(
             controller: widget.passwordController,
+            isDark: widget.isDark,
             labelText: 'Password',
             hintText: 'Enter your password',
             prefixIcon: Icons.lock_outline,
             obscureText: !_isPasswordVisible,
             textInputAction: TextInputAction.done,
             autofillHints: const [AutofillHints.password],
-            onFieldSubmitted: (_) =>
-                _submitForm(), // Validates and closes keyboard
+            onFieldSubmitted: (_) => _submitForm(),
             suffixIcon: IconButton(
               icon: Icon(
                 _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -104,6 +94,7 @@ class _LoginFormState extends State<LoginForm> {
             child: PrimaryTextButton(
               text: 'Forgot Password?',
               onPressed: () {},
+              textColor: widget.isDark ? Colors.white.withOpacity(0.9) : null,
             ),
           ),
         ],

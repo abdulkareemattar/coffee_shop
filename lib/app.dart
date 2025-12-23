@@ -7,7 +7,7 @@ import 'core/theme/app_theme.dart';
 import 'presentation/manager/cubit/favorites_cubit.dart';
 import 'presentation/manager/cubit/auth/auth_cubit.dart';
 import 'presentation/manager/cubit/cart/cart_cubit.dart';
-
+import 'presentation/manager/cubit/theme/theme_cubit.dart';
 import 'presentation/manager/cubit/products/products_cubit.dart';
 import 'presentation/manager/cubit/categories/categories_cubit.dart';
 
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => getIt<ThemeCubit>()),
         BlocProvider(
           create: (context) => getIt<FavoritesCubit>()..loadFavorites(),
         ),
@@ -37,10 +38,16 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
-            routerConfig: router,
+          return BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: themeMode,
+                routerConfig: router,
+              );
+            },
           );
         },
       ),

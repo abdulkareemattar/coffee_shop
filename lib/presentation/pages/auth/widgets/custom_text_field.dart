@@ -14,8 +14,9 @@ class CustomTextField extends StatelessWidget {
   final Iterable<String>? autofillHints;
   final void Function(String)? onChanged;
   final TextCapitalization textCapitalization;
-  final TextInputType? keyboardType; // Changed to nullable to allow fallback
+  final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final bool isDark;
 
   const CustomTextField({
     super.key,
@@ -32,11 +33,13 @@ class CustomTextField extends StatelessWidget {
     this.autofillHints,
     this.onChanged,
     this.textCapitalization = TextCapitalization.none,
+    this.isDark = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final labelColor = isDark ? Colors.white : Colors.black;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,6 +48,8 @@ class CustomTextField extends StatelessWidget {
           labelText,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
+            color: labelColor,
+            fontFamily: 'Sora',
           ),
         ),
         SizedBox(height: 8.h),
@@ -57,33 +62,64 @@ class CustomTextField extends StatelessWidget {
           autofillHints: autofillHints,
           onChanged: onChanged,
           textCapitalization: textCapitalization,
-          autovalidateMode:
-              AutovalidateMode.onUserInteraction, // Immediate validation
-          style: const TextStyle(color: Colors.black),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          style: TextStyle(
+            color: isDark ? Colors.white : Colors.black,
+            fontFamily: 'Sora',
+          ),
           decoration: InputDecoration(
+            filled: true,
+            fillColor: isDark
+                ? Colors.white.withOpacity(0.05)
+                : Colors.grey.shade50,
             hintText: hintText,
-            prefixIcon: Icon(prefixIcon),
-            suffixIcon: suffixIcon,
+            hintStyle: TextStyle(
+              color: isDark ? Colors.white.withOpacity(0.4) : Colors.grey,
+              fontFamily: 'Sora',
+            ),
+            prefixIcon: Icon(
+              prefixIcon,
+              color: isDark ? Colors.white.withOpacity(0.6) : Colors.grey,
+            ),
+            suffixIcon: suffixIcon != null
+                ? Theme(
+                    data: theme.copyWith(
+                      iconTheme: theme.iconTheme.copyWith(
+                        color: isDark
+                            ? Colors.white.withOpacity(0.6)
+                            : Colors.grey,
+                      ),
+                    ),
+                    child: suffixIcon!,
+                  )
+                : null,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: BorderSide(
+                color: isDark
+                    ? Colors.white.withOpacity(0.1)
+                    : Colors.grey.shade300,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: BorderSide(
+                color: isDark
+                    ? Colors.white.withOpacity(0.1)
+                    : Colors.grey.shade300,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: const BorderSide(color: AppColors.primary),
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
             ),
             errorBorder: OutlineInputBorder(
-              // Added error border styling
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: const BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: const BorderSide(color: Colors.redAccent),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: const BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(16.r),
+              borderSide: const BorderSide(color: Colors.redAccent, width: 2),
             ),
           ),
           validator: validator,

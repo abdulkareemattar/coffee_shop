@@ -9,6 +9,7 @@ class RegisterForm extends StatefulWidget {
   final TextEditingController phoneController;
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
+  final bool isDark;
 
   const RegisterForm({
     super.key,
@@ -18,6 +19,7 @@ class RegisterForm extends StatefulWidget {
     required this.phoneController,
     required this.passwordController,
     required this.formKey,
+    this.isDark = false,
   });
 
   @override
@@ -45,6 +47,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Expanded(
                 child: CustomTextField(
                   controller: widget.firstNameController,
+                  isDark: widget.isDark,
                   labelText: 'First Name',
                   hintText: 'First Name',
                   prefixIcon: Icons.person_outline,
@@ -66,6 +69,7 @@ class _RegisterFormState extends State<RegisterForm> {
               Expanded(
                 child: CustomTextField(
                   controller: widget.lastNameController,
+                  isDark: widget.isDark,
                   labelText: 'Last Name',
                   hintText: 'Last Name',
                   prefixIcon: Icons.person_outline,
@@ -88,6 +92,7 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: 24.h),
           CustomTextField(
             controller: widget.emailController,
+            isDark: widget.isDark,
             labelText: 'Email',
             hintText: 'Enter your email',
             prefixIcon: Icons.email_outlined,
@@ -108,6 +113,7 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: 24.h),
           CustomTextField(
             controller: widget.phoneController,
+            isDark: widget.isDark,
             labelText: 'Phone Number',
             hintText: 'Enter your phone number',
             prefixIcon: Icons.phone_outlined,
@@ -127,6 +133,7 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: 24.h),
           CustomTextField(
             controller: widget.passwordController,
+            isDark: widget.isDark,
             labelText: 'Password',
             hintText: 'Enter your password',
             prefixIcon: Icons.lock_outline,

@@ -13,8 +13,9 @@ import '../../presentation/pages/cart/cart_screen.dart';
 import '../../presentation/pages/coffee/coffee_screen.dart';
 import '../../presentation/pages/details/details_screen.dart';
 import '../../presentation/pages/favorites/favorites_screen.dart';
-import '../../presentation/pages/order/order_screen.dart';
-import '../../presentation/pages/tracking/tracking_screen.dart';
+import 'package:coffee_shop/presentation/pages/order/order_screen.dart';
+import 'package:coffee_shop/presentation/pages/splash/animated_splash_screen.dart';
+import 'package:coffee_shop/presentation/pages/tracking/tracking_screen.dart';
 
 @lazySingleton
 class AppRouter {
@@ -25,7 +26,7 @@ class AppRouter {
   GoRouter get router => _router;
 
   late final GoRouter _router = GoRouter(
-    initialLocation: '/onboarding',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
     refreshListenable: _AuthRefreshNotifier(_authCubit),
     redirect: (context, state) {
@@ -63,6 +64,12 @@ class AppRouter {
       return null; // No redirect needed
     },
     routes: [
+      // Splash
+      GoRoute(
+        path: '/splash',
+        name: 'splash',
+        builder: (context, state) => const AnimatedSplashScreen(),
+      ),
       // Onboarding
       GoRoute(
         path: '/onboarding',

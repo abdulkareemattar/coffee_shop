@@ -15,26 +15,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<User> login(String email, String password) async {
-    try {
-      final response = await _authApiClient.login(
-        LoginRequest(email: email, password: password),
-      );
+    final response = await _authApiClient.login(
+      LoginRequest(email: email, password: password),
+    );
 
-      if (response.token != null) {
-        await _secureStorage.write(key: 'auth_token', value: response.token);
-      }
-
-      return UserModel(
-        id: response.user?.id ?? '',
-        firstName: response.user?.firstName ?? '',
-        lastName: response.user?.lastName ?? '',
-        email: response.user?.email ?? email,
-        role: response.user?.role ?? 'client',
-        token: response.token,
-      );
-    } catch (e) {
-      throw Exception('Login failed: $e');
+    if (response.token != null) {
+      await _secureStorage.write(key: 'auth_token', value: response.token);
     }
+
+    return UserModel(
+      id: response.user?.id ?? '',
+      firstName: response.user?.firstName ?? '',
+      lastName: response.user?.lastName ?? '',
+      email: response.user?.email ?? email,
+      role: response.user?.role ?? 'client',
+      token: response.token,
+    );
   }
 
   @override
@@ -44,32 +40,28 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    try {
-      final response = await _authApiClient.register(
-        RegisterRequest(
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-          role: 'client',
-        ),
-      );
+    final response = await _authApiClient.register(
+      RegisterRequest(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        role: 'client',
+      ),
+    );
 
-      if (response.token != null) {
-        await _secureStorage.write(key: 'auth_token', value: response.token);
-      }
-
-      return UserModel(
-        id: response.user?.id ?? '',
-        firstName: response.user?.firstName ?? firstName,
-        lastName: response.user?.lastName ?? lastName,
-        email: response.user?.email ?? email,
-        role: response.user?.role ?? 'client',
-        token: response.token,
-      );
-    } catch (e) {
-      throw Exception('Registration failed: $e');
+    if (response.token != null) {
+      await _secureStorage.write(key: 'auth_token', value: response.token);
     }
+
+    return UserModel(
+      id: response.user?.id ?? '',
+      firstName: response.user?.firstName ?? firstName,
+      lastName: response.user?.lastName ?? lastName,
+      email: response.user?.email ?? email,
+      role: response.user?.role ?? 'client',
+      token: response.token,
+    );
   }
 
   @override
@@ -103,7 +95,6 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return null;
     } catch (e) {
-      // If fetching user fails (e.g., token expired), return null
       return null;
     }
   }

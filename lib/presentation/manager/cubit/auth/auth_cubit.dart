@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import '../../../../core/error/data_error_handler.dart';
 import '../../../../../domain/entities/user.dart';
 import '../../../../../domain/usecases/login_usecase.dart';
 import '../../../../../domain/usecases/register_usecase.dart';
@@ -15,7 +16,7 @@ part 'auth_state.dart';
 part 'auth_cubit.freezed.dart';
 part 'auth_cubit.g.dart';
 
-@injectable
+@lazySingleton
 class AuthCubit extends HydratedCubit<AuthState> {
   final LoginUseCase _loginUseCase;
   final RegisterUseCase _registerUseCase;
@@ -147,12 +148,7 @@ class AuthCubit extends HydratedCubit<AuthState> {
 
   // Helper to provide user-friendly error messages
   String _mapFailureToMessage(Object error) {
-    final message = error.toString();
-    // Remove "Exception: " prefix if present
-    if (message.startsWith('Exception: ')) {
-      return message.substring(11);
-    }
-    return message;
+    return DataErrorHandler.handle(error);
   }
 
   // Helper to convert User to AuthResponse for backward compatibility

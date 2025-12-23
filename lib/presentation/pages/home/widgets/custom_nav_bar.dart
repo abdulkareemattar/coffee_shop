@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:coffee_shop/presentation/manager/cubit/favorites_cubit.dart';
+import 'package:coffee_shop/presentation/manager/cubit/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,17 +20,30 @@ class CustomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
+    final theme = Theme.of(context);
+
     return Container(
       height: 70.h,
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
-          ),
-        ],
+        color: theme.scaffoldBackgroundColor,
+        border: isDark
+            ? Border(
+                top: BorderSide(
+                  color: Colors.white.withOpacity(0.05),
+                  width: 1,
+                ),
+              )
+            : null,
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
+                ),
+              ],
       ),
       child: SafeArea(
         child: Padding(
@@ -38,6 +52,7 @@ class CustomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(
+                context,
                 index: 0,
                 icon: Assets.icons.typeRegularStateOutlineLibraryHome,
                 onTap: () => pageController.animateToPage(
@@ -64,6 +79,7 @@ class CustomNavBar extends StatelessWidget {
                       padding: EdgeInsets.all(4.w),
                     ),
                     child: _buildNavItem(
+                      context,
                       index: 1,
                       icon: Assets.icons.typeRegularStateOutlineLibraryHeart,
                       onTap: () => pageController.animateToPage(
@@ -76,6 +92,7 @@ class CustomNavBar extends StatelessWidget {
                 },
               ),
               _buildNavItem(
+                context,
                 index: 2,
                 icon: Assets.icons.typeRegularStateOutlineLibraryBag,
                 onTap: () => pageController.animateToPage(
@@ -85,6 +102,7 @@ class CustomNavBar extends StatelessWidget {
                 ),
               ),
               _buildNavItem(
+                context,
                 index: 3,
                 icon: Assets.icons.typeRegularStateOutlineLibraryNotification,
                 onTap: () => pageController.animateToPage(
@@ -100,12 +118,15 @@ class CustomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem({
+  Widget _buildNavItem(
+    BuildContext context, {
     required int index,
     required String icon,
     required VoidCallback onTap,
   }) {
     final isActive = isActivate == index;
+    final isDark = context.isDarkMode;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
@@ -116,7 +137,11 @@ class CustomNavBar extends StatelessWidget {
           width: 24.w,
           height: 24.h,
           colorFilter: ColorFilter.mode(
-            isActive ? AppColors.primary : Colors.grey.shade400,
+            isActive
+                ? AppColors.primary
+                : (isDark
+                      ? Colors.white.withOpacity(0.5)
+                      : Colors.grey.shade400),
             BlendMode.srcIn,
           ),
         ),

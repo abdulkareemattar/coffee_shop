@@ -12,101 +12,83 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<List<Product>> getProducts() async {
-    try {
-      final response = await _productApiClient.getProducts();
-      return response.products
-          .map(
-            (product) => ProductModel(
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              price: product.price,
-              image: product.image,
-              categoryId: product.categoryId,
-              rating: product.rating,
-              createdAt: product.createdAt,
-              updatedAt: product.updatedAt,
-            ),
-          )
-          .toList();
-    } catch (e) {
-      throw Exception('Failed to fetch products: $e');
-    }
+    final response = await _productApiClient.getProducts();
+    return response.products
+        .map(
+          (product) => ProductModel(
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            image: product.image,
+            categoryId: product.categoryId,
+            rating: product.rating,
+            createdAt: product.createdAt,
+            updatedAt: product.updatedAt,
+          ),
+        )
+        .toList();
   }
 
   @override
   Future<Product> getProductById(String id) async {
-    try {
-      final product = await _productApiClient.getProductById(id);
-      return ProductModel(
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        image: product.image,
-        categoryId: product.categoryId,
-        rating: null,
-        createdAt: product.createdAt,
-        updatedAt: product.updatedAt,
-      );
-    } catch (e) {
-      throw Exception('Failed to fetch product: $e');
-    }
+    final product = await _productApiClient.getProductById(id);
+    return ProductModel(
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      image: product.image,
+      categoryId: product.categoryId,
+      rating: null,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
+    );
   }
 
   @override
   Future<List<Product>> getProductsByCategory(String categoryId) async {
-    try {
-      final products = await _productApiClient.getProductsByCategory(
-        categoryId,
-      );
-      return products
-          .map(
-            (product) => ProductModel(
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              price: product.price,
-              image: product.image,
-              categoryId: product.categoryId,
-              rating: null,
-              createdAt: product.createdAt,
-              updatedAt: product.updatedAt,
-            ),
-          )
-          .toList();
-    } catch (e) {
-      throw Exception('Failed to fetch products by category: $e');
-    }
+    final products = await _productApiClient.getProductsByCategory(categoryId);
+    return products
+        .map(
+          (product) => ProductModel(
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            image: product.image,
+            categoryId: product.categoryId,
+            rating: null,
+            createdAt: product.createdAt,
+            updatedAt: product.updatedAt,
+          ),
+        )
+        .toList();
   }
 
   @override
   Future<List<Product>> searchProducts(String query) async {
-    try {
-      final response = await _productApiClient.getProducts();
-      // Filter products locally (in real app, this should be done on backend)
-      return response.products
-          .where(
-            (product) =>
-                product.name.toLowerCase().contains(query.toLowerCase()) ||
-                product.description.toLowerCase().contains(query.toLowerCase()),
-          )
-          .map(
-            (product) => ProductModel(
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              price: product.price,
-              image: product.image,
-              categoryId: product.categoryId,
-              rating: product.rating,
-              createdAt: product.createdAt,
-              updatedAt: product.updatedAt,
-            ),
-          )
-          .toList();
-    } catch (e) {
-      throw Exception('Failed to search products: $e');
-    }
+    final response = await _productApiClient.getProducts();
+    // Filter products locally (in real app, this should be done on backend)
+    return response.products
+        .where(
+          (product) =>
+              product.name.toLowerCase().contains(query.toLowerCase()) ||
+              product.description.toLowerCase().contains(query.toLowerCase()),
+        )
+        .map(
+          (product) => ProductModel(
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            image: product.image,
+            categoryId: product.categoryId,
+            rating: product.rating,
+            createdAt: product.createdAt,
+            updatedAt: product.updatedAt,
+          ),
+        )
+        .toList();
   }
 }

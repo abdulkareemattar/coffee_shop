@@ -7,12 +7,14 @@ class PrimaryTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool bold;
+  final Color? textColor;
 
   const PrimaryTextButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.bold = true,
+    this.textColor,
   });
 
   @override
@@ -22,8 +24,9 @@ class PrimaryTextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: AppColors.primary,
+          color: textColor ?? AppColors.primary,
           fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+          fontFamily: 'Sora',
         ),
       ),
     );

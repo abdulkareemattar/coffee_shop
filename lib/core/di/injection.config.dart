@@ -61,6 +61,7 @@ import '../../presentation/manager/cubit/categories/categories_cubit.dart'
 import '../../presentation/manager/cubit/favorites_cubit.dart' as _i288;
 import '../../presentation/manager/cubit/orders/orders_cubit.dart' as _i869;
 import '../../presentation/manager/cubit/products/products_cubit.dart' as _i719;
+import '../../presentation/manager/cubit/theme/theme_cubit.dart' as _i229;
 import '../network/api_client_module.dart' as _i651;
 import '../network/dio_module.dart' as _i614;
 import '../router/app_router.dart' as _i81;
@@ -77,6 +78,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => networkModule.secureStorage,
     );
+    gh.lazySingleton<_i229.ThemeCubit>(() => _i229.ThemeCubit());
     gh.lazySingleton<_i46.CartRepository>(() => _i915.CartRepositoryImpl());
     gh.lazySingleton<_i507.OrderRepository>(() => _i717.OrderRepositoryImpl());
     gh.lazySingleton<_i361.Dio>(
@@ -203,7 +205,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i35.RegisterUseCase>(
       () => _i35.RegisterUseCase(gh<_i1073.AuthRepository>()),
     );
-    gh.factory<_i748.AuthCubit>(
+    gh.lazySingleton<_i748.AuthCubit>(
       () => _i748.AuthCubit(
         gh<_i253.LoginUseCase>(),
         gh<_i35.RegisterUseCase>(),

@@ -5,12 +5,14 @@ class AuthFooter extends StatelessWidget {
   final String text;
   final String actionText;
   final VoidCallback onActionPressed;
+  final bool isDark;
 
   const AuthFooter({
     super.key,
     required this.text,
     required this.actionText,
     required this.onActionPressed,
+    this.isDark = false,
   });
 
   @override
@@ -18,8 +20,18 @@ class AuthFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(text),
-        PrimaryTextButton(text: actionText, onPressed: onActionPressed),
+        Text(
+          text,
+          style: TextStyle(
+            color: isDark ? Colors.white.withOpacity(0.8) : Colors.black87,
+            fontFamily: 'Sora',
+          ),
+        ),
+        PrimaryTextButton(
+          text: actionText,
+          onPressed: onActionPressed,
+          textColor: isDark ? Colors.white : null,
+        ),
       ],
     );
   }

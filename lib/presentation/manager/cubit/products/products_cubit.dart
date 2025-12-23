@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/error/data_error_handler.dart';
 import '../../../../domain/usecases/get_products_usecase.dart';
 import '../../../../domain/usecases/get_products_by_category_usecase.dart';
 import '../../../../domain/usecases/search_products_usecase.dart';
@@ -21,7 +22,6 @@ class ProductsCubit extends HydratedCubit<ProductsState> {
     this._getProductsByCategoryUseCase,
     this._searchProductsUseCase,
   ) : super(const ProductsState.initial()) {
-    // Initialize _allCoffees if we have a persisted state
     state.maybeWhen(loaded: (coffees) => _allCoffees = coffees, orElse: () {});
   }
 
@@ -38,7 +38,7 @@ class ProductsCubit extends HydratedCubit<ProductsState> {
       emit(ProductsState.loaded(coffees: coffeeModels));
     } catch (e) {
       if (isClosed) return;
-      emit(ProductsState.error(message: e.toString()));
+      emit(ProductsState.error(message: DataErrorHandler.handle(e)));
     }
   }
 
@@ -59,7 +59,7 @@ class ProductsCubit extends HydratedCubit<ProductsState> {
       emit(ProductsState.loaded(coffees: coffeeModels));
     } catch (e) {
       if (isClosed) return;
-      emit(ProductsState.error(message: e.toString()));
+      emit(ProductsState.error(message: DataErrorHandler.handle(e)));
     }
   }
 
@@ -76,7 +76,7 @@ class ProductsCubit extends HydratedCubit<ProductsState> {
       emit(ProductsState.loaded(coffees: coffeeModels));
     } catch (e) {
       if (isClosed) return;
-      emit(ProductsState.error(message: e.toString()));
+      emit(ProductsState.error(message: DataErrorHandler.handle(e)));
     }
   }
 
