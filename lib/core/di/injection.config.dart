@@ -34,7 +34,11 @@ import '../../domain/usecases/add_to_cart_usecase.dart' as _i612;
 import '../../domain/usecases/cancel_order_usecase.dart' as _i218;
 import '../../domain/usecases/check_auth_status_usecase.dart' as _i959;
 import '../../domain/usecases/clear_cart_usecase.dart' as _i44;
+import '../../domain/usecases/create_category_usecase.dart' as _i528;
 import '../../domain/usecases/create_order_usecase.dart' as _i1052;
+import '../../domain/usecases/create_product_usecase.dart' as _i784;
+import '../../domain/usecases/delete_category_usecase.dart' as _i420;
+import '../../domain/usecases/delete_product_usecase.dart' as _i140;
 import '../../domain/usecases/get_cart_items_usecase.dart' as _i237;
 import '../../domain/usecases/get_cart_total_usecase.dart' as _i303;
 import '../../domain/usecases/get_categories_usecase.dart' as _i943;
@@ -53,7 +57,9 @@ import '../../domain/usecases/remove_from_cart_usecase.dart' as _i356;
 import '../../domain/usecases/search_products_usecase.dart' as _i473;
 import '../../domain/usecases/toggle_favorite_usecase.dart' as _i308;
 import '../../domain/usecases/update_cart_item_quantity_usecase.dart' as _i188;
+import '../../domain/usecases/update_category_usecase.dart' as _i431;
 import '../../domain/usecases/update_order_status_usecase.dart' as _i206;
+import '../../domain/usecases/update_product_usecase.dart' as _i777;
 import '../../presentation/manager/cubit/auth/auth_cubit.dart' as _i748;
 import '../../presentation/manager/cubit/cart/cart_cubit.dart' as _i772;
 import '../../presentation/manager/cubit/categories/categories_cubit.dart'
@@ -147,6 +153,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i933.ProductRepository>(
       () => _i876.ProductRepositoryImpl(gh<_i9.ProductApiClient>()),
     );
+    gh.factory<_i784.CreateProductUseCase>(
+      () => _i784.CreateProductUseCase(gh<_i933.ProductRepository>()),
+    );
+    gh.factory<_i140.DeleteProductUseCase>(
+      () => _i140.DeleteProductUseCase(gh<_i933.ProductRepository>()),
+    );
+    gh.factory<_i777.UpdateProductUseCase>(
+      () => _i777.UpdateProductUseCase(gh<_i933.ProductRepository>()),
+    );
     gh.lazySingleton<_i812.CoffeeRepository>(
       () => _i1032.CoffeeRepositoryImpl(gh<_i9.ProductApiClient>()),
     );
@@ -177,13 +192,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i473.SearchProductsUseCase>(
       () => _i473.SearchProductsUseCase(gh<_i933.ProductRepository>()),
     );
-    gh.factory<_i719.ProductsCubit>(
-      () => _i719.ProductsCubit(
-        gh<_i626.GetProductsUseCase>(),
-        gh<_i279.GetProductsByCategoryUseCase>(),
-        gh<_i473.SearchProductsUseCase>(),
-      ),
-    );
     gh.lazySingleton<_i520.GetFavoritesUseCase>(
       () => _i520.GetFavoritesUseCase(gh<_i812.CoffeeRepository>()),
     );
@@ -205,6 +213,25 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i35.RegisterUseCase>(
       () => _i35.RegisterUseCase(gh<_i1073.AuthRepository>()),
     );
+    gh.factory<_i528.CreateCategoryUseCase>(
+      () => _i528.CreateCategoryUseCase(gh<_i485.CategoryRepository>()),
+    );
+    gh.factory<_i420.DeleteCategoryUseCase>(
+      () => _i420.DeleteCategoryUseCase(gh<_i485.CategoryRepository>()),
+    );
+    gh.factory<_i431.UpdateCategoryUseCase>(
+      () => _i431.UpdateCategoryUseCase(gh<_i485.CategoryRepository>()),
+    );
+    gh.factory<_i719.ProductsCubit>(
+      () => _i719.ProductsCubit(
+        gh<_i626.GetProductsUseCase>(),
+        gh<_i279.GetProductsByCategoryUseCase>(),
+        gh<_i473.SearchProductsUseCase>(),
+        gh<_i784.CreateProductUseCase>(),
+        gh<_i777.UpdateProductUseCase>(),
+        gh<_i140.DeleteProductUseCase>(),
+      ),
+    );
     gh.lazySingleton<_i748.AuthCubit>(
       () => _i748.AuthCubit(
         gh<_i253.LoginUseCase>(),
@@ -220,16 +247,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i626.GetCategoryByIdUseCase>(
       () => _i626.GetCategoryByIdUseCase(gh<_i485.CategoryRepository>()),
     );
-    gh.factory<_i1026.CategoriesCubit>(
-      () => _i1026.CategoriesCubit(
-        gh<_i943.GetCategoriesUseCase>(),
-        gh<_i626.GetCategoryByIdUseCase>(),
-      ),
-    );
     gh.factory<_i288.FavoritesCubit>(
       () => _i288.FavoritesCubit(
         getFavoritesUseCase: gh<_i520.GetFavoritesUseCase>(),
         toggleFavoriteUseCase: gh<_i308.ToggleFavoriteUseCase>(),
+      ),
+    );
+    gh.factory<_i1026.CategoriesCubit>(
+      () => _i1026.CategoriesCubit(
+        gh<_i943.GetCategoriesUseCase>(),
+        gh<_i626.GetCategoryByIdUseCase>(),
+        gh<_i528.CreateCategoryUseCase>(),
+        gh<_i431.UpdateCategoryUseCase>(),
+        gh<_i420.DeleteCategoryUseCase>(),
       ),
     );
     gh.lazySingleton<_i81.AppRouter>(

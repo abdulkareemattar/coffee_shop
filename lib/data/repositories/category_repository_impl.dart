@@ -35,4 +35,44 @@ class CategoryRepositoryImpl implements CategoryRepository {
       description: category.description,
     );
   }
+
+  @override
+  Future<Category> createCategory({
+    required String name,
+    required String description,
+  }) async {
+    final category = await _categoryApiClient.createCategory({
+      'name': name,
+      'description': description,
+    });
+    return CategoryModel(
+      id: category.id,
+      name: category.name,
+      image: null,
+      description: category.description,
+    );
+  }
+
+  @override
+  Future<Category> updateCategory({
+    required String id,
+    required String name,
+    required String description,
+  }) async {
+    final category = await _categoryApiClient.updateCategory(id, {
+      'name': name,
+      'description': description,
+    });
+    return CategoryModel(
+      id: category.id,
+      name: category.name,
+      image: null,
+      description: category.description,
+    );
+  }
+
+  @override
+  Future<void> deleteCategory(String id) async {
+    await _categoryApiClient.deleteCategory(id);
+  }
 }

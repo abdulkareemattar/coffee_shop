@@ -61,14 +61,14 @@ class _CoffeeHeaderState extends State<CoffeeHeader> {
       height: 280.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF131313) : AppColors.darkGrey,
-        gradient: isDark
-            ? const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF131313), Color(0xFF202020)],
-              )
-            : null,
+        color: isDark ? const Color(0xFF131313) : const Color(0xFF1C1C1C),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? [const Color(0xFF131313), const Color(0xFF202020)]
+              : [const Color(0xFF1C1C1C), const Color(0xFF313131)],
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40.0.w, vertical: 60.h),
@@ -94,6 +94,7 @@ class _CoffeeHeaderState extends State<CoffeeHeader> {
                           'Bilzen, Tanjungbalai',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontFamily: Assets.fonts.soraBold,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
@@ -121,50 +122,41 @@ class _CoffeeHeaderState extends State<CoffeeHeader> {
                 ),
               ],
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 28.h),
             Row(
               children: [
                 Expanded(
                   flex: 8,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        height: 52.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.r),
-                          gradient: LinearGradient(
-                            colors: [Colors.grey[850]!, Colors.grey[800]!],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                      ),
-                      TextField(
-                        controller: _searchController,
-                        onChanged: _onSearchChanged,
-                        style: const TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.transparent,
-                          border: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          hintText: 'Search coffee',
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: SvgPicture.asset(
-                              colorFilter: const ColorFilter.mode(
-                                Colors.white,
-                                BlendMode.srcIn,
-                              ),
-                              Assets.icons.typeRegularStateOutlineLibrarySearch,
+                  child: Container(
+                    height: 52.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      color: const Color(0xFF313131),
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: _onSearchChanged,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        hintText: 'Search coffee',
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: SvgPicture.asset(
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
                             ),
+                            Assets.icons.typeRegularStateOutlineLibrarySearch,
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 SizedBox(width: 12.w),

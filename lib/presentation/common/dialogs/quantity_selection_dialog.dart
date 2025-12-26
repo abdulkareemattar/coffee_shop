@@ -47,124 +47,203 @@ class _QuantitySelectionDialogState extends State<QuantitySelectionDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
-      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+      backgroundColor: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+      elevation: 0,
       child: Padding(
         padding: EdgeInsets.all(24.w),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Add to Cart',
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: AppColors.darkGrey,
-              ),
-            ),
-            SizedBox(height: 16.h),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16.r),
-              child: Image.asset(
-                widget.coffee.imagePath,
-                height: 120.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  height: 120.h,
-                  color: Colors.grey.shade200,
-                  child: const Icon(Icons.coffee),
-                ),
-              ),
-            ),
-            SizedBox(height: 16.h),
-            Text(
-              widget.coffee.name,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              '\$${widget.coffee.price.toStringAsFixed(2)}',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppColors.primary,
-              ),
-            ),
-            SizedBox(height: 24.h),
+            // Header
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildQuantityBtn(Icons.remove, () {
-                  if (quantity > 1) _updateQuantity(quantity - 1);
-                }),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: SizedBox(
-                    width: 60.w,
-                    child: TextField(
-                      controller: _controller,
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.darkGrey,
-                      ),
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.symmetric(vertical: 8.h),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          borderSide: BorderSide(color: AppColors.lightGrey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          borderSide: BorderSide(color: AppColors.lightGrey),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          borderSide: BorderSide(color: AppColors.primary),
-                        ),
-                      ),
-                      onChanged: (value) {
-                        final parsed = int.tryParse(value);
-                        if (parsed != null && parsed > 0) {
-                          setState(() {
-                            quantity = parsed;
-                          });
-                        }
-                      },
+                Text(
+                  'Add to Cart',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : AppColors.darkGrey,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: EdgeInsets.all(8.w),
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.white.withOpacity(0.1)
+                          : Colors.grey.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.close,
+                      size: 20.sp,
+                      color: isDark ? Colors.white70 : Colors.grey,
                     ),
                   ),
                 ),
-                _buildQuantityBtn(Icons.add, () {
-                  _updateQuantity(quantity + 1);
-                }, active: true),
               ],
             ),
-            SizedBox(height: 32.h),
+            SizedBox(height: 24.h),
+
+            // Product Info
             Row(
               children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(color: Colors.grey),
+                Hero(
+                  tag: 'coffee_image_${widget.coffee.id}',
+                  child: Container(
+                    width: 80.w,
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.r),
+                      child: Image.asset(
+                        widget.coffee.imagePath,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: isDark ? Colors.grey[800] : Colors.grey[200],
+                          child: Icon(
+                            Icons.coffee,
+                            color: isDark ? Colors.white54 : Colors.grey,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(width: 12.w),
+                SizedBox(width: 16.w),
                 Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.coffee.name,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : AppColors.darkGrey,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 8.h),
+                      Text(
+                        '\$${widget.coffee.price.toStringAsFixed(2)}',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 32.h),
+
+            // Quantity Controls
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(
+                  color: isDark
+                      ? Colors.white.withOpacity(0.05)
+                      : Colors.grey.shade200,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Quantity',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : Colors.grey.shade700,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      _buildQuantityBtn(Icons.remove, () {
+                        if (quantity > 1) _updateQuantity(quantity - 1);
+                      }, isDark: isDark),
+                      Container(
+                        width: 50.w,
+                        alignment: Alignment.center,
+                        child: Text(
+                          quantity.toString(),
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? Colors.white : AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      _buildQuantityBtn(
+                        Icons.add,
+                        () => _updateQuantity(quantity + 1),
+                        isDark: isDark,
+                        isAdd: true,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 32.h),
+
+            // Total Price & Add Button
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Total Price',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isDark ? Colors.white54 : Colors.grey,
+                        ),
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        '\$${(widget.coffee.price * quantity).toStringAsFixed(2)}',
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : AppColors.darkGrey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
                   child: PrimaryButton(
-                    text: 'Add',
+                    text: 'Add to Cart',
                     onPressed: () {
-                      // Final validation before pop
                       if (quantity > 0) {
                         Navigator.pop(context, quantity);
                       }
                     },
+                    height: 56.h,
                   ),
                 ),
               ],
@@ -178,21 +257,41 @@ class _QuantitySelectionDialogState extends State<QuantitySelectionDialog> {
   Widget _buildQuantityBtn(
     IconData icon,
     VoidCallback onTap, {
-    bool active = false,
+    required bool isDark,
+    bool isAdd = false,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 44.w,
-        height: 44.h,
+        width: 40.w,
+        height: 40.h,
         decoration: BoxDecoration(
-          color: active ? AppColors.primary : Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(
-            color: active ? AppColors.primary : AppColors.lightGrey,
-          ),
+          color: isAdd
+              ? AppColors.primary
+              : (isDark ? Colors.white.withOpacity(0.1) : Colors.white),
+          shape: BoxShape.circle,
+          boxShadow: isAdd
+              ? [
+                  BoxShadow(
+                    color: AppColors.primary.withOpacity(0.4),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
+          border: isAdd
+              ? null
+              : Border.all(
+                  color: isDark ? Colors.transparent : Colors.grey.shade300,
+                ),
         ),
-        child: Icon(icon, color: active ? Colors.white : AppColors.darkGrey),
+        child: Icon(
+          icon,
+          color: isAdd
+              ? Colors.white
+              : (isDark ? Colors.white : Colors.grey.shade600),
+          size: 20.sp,
+        ),
       ),
     );
   }

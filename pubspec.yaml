@@ -86,18 +86,14 @@ flutter_launcher_icons:
 # Configuration for Splash Screen (Kaffein)
 flutter_native_splash:
   color: "#FFFFFF"
-  image: "assets/icons/app_icon.png"
-  color_dark: "#FFFFFF"
-  image_dark: "assets/icons/app_icon.png"
+  color_dark: "#1C1C1C"
   fullscreen: true
   
   android_12:
     color: "#FFFFFF"
     icon_background_color: "#FFFFFF"
-    image: "assets/icons/app_icon.png"
-    color_dark: "#FFFFFF"
-    icon_background_color_dark: "#FFFFFF"
-    image_dark: "assets/icons/app_icon.png"
+    color_dark: "#1C1C1C"
+    icon_background_color_dark: "#1C1C1C"
   
   android: true
   ios: true

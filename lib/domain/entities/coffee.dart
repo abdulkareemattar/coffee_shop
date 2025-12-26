@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Coffee extends Equatable {
-  final int id;
+  final String id;
   final String imagePath;
   final String name;
   final String type;

@@ -1,4 +1,3 @@
-import 'package:coffee_shop/core/utils/app_colors.dart';
 import 'package:coffee_shop/presentation/common/dialogs/quantity_selection_dialog.dart';
 import 'package:coffee_shop/domain/entities/cart_item.dart';
 import 'package:coffee_shop/domain/entities/product.dart';
@@ -108,8 +107,51 @@ class CoffeeGrid extends StatelessWidget {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${coffeeModel.name} ($quantity) added to cart'),
-        backgroundColor: AppColors.green,
+        content: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8.w),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.check, color: Colors.white, size: 20),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Success',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    '${coffeeModel.name} ($quantity) added to cart',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: const Color(0xFF323232),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        margin: EdgeInsets.all(20.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         duration: const Duration(seconds: 2),
       ),
     );

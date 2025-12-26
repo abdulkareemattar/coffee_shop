@@ -28,7 +28,7 @@ class CoffeeModel extends Coffee {
   // Convert a Map into a CoffeeModel.
   factory CoffeeModel.fromMap(Map<String, dynamic> map) {
     return CoffeeModel(
-      id: map['id'],
+      id: map['id'].toString(),
       name: map['name'],
       imagePath:
           map['imagePath'], // CORRECTED: Was 'image', now matches the database column.

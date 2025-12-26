@@ -19,18 +19,25 @@ class DetailsBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       height: 118.h,
       padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
       decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
+        color: theme.scaffoldBackgroundColor,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+        border: isDark
+            ? Border(
+                top: BorderSide(
+                  color: Colors.white.withOpacity(0.05),
+                  width: 1.5,
+                ),
+              )
+            : null,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
             blurRadius: 20,
             offset: const Offset(0, -10),
           ),
@@ -46,7 +53,7 @@ class DetailsBottomBar extends StatelessWidget {
               Text(
                 'Price',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade500,
+                  color: isDark ? Colors.white70 : Colors.grey.shade500,
                 ),
               ),
               SizedBox(height: 4.h),
@@ -54,6 +61,7 @@ class DetailsBottomBar extends StatelessWidget {
                 '\$ ${coffeeModel.price.toStringAsFixed(2)}',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   color: AppColors.primary,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -75,6 +83,7 @@ class DetailsBottomBar extends StatelessWidget {
                   context.push('/order', extra: coffeeModel);
                 },
                 width: 105.w,
+                height: 56.h,
               ),
             ],
           ),

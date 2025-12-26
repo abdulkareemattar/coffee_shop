@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:badges/badges.dart' as badges;
 import 'package:coffee_shop/presentation/manager/cubit/favorites_cubit.dart';
 import 'package:coffee_shop/presentation/manager/cubit/theme/theme_cubit.dart';
@@ -21,97 +22,105 @@ class CustomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = context.isDarkMode;
-    final theme = Theme.of(context);
 
-    return Container(
-      height: 70.h,
-      decoration: BoxDecoration(
-        color: theme.scaffoldBackgroundColor,
-        border: isDark
-            ? Border(
-                top: BorderSide(
-                  color: Colors.white.withOpacity(0.05),
-                  width: 1,
-                ),
-              )
-            : null,
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, -2),
-                ),
-              ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(
-                context,
-                index: 0,
-                icon: Assets.icons.typeRegularStateOutlineLibraryHome,
-                onTap: () => pageController.animateToPage(
-                  0,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                ),
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Container(
+          height: 85.h,
+          decoration: BoxDecoration(
+            color: isDark
+                ? const Color(0xFF131313).withOpacity(0.8)
+                : Colors.white.withOpacity(0.9),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+            border: Border(
+              top: BorderSide(
+                color: isDark
+                    ? Colors.white.withOpacity(0.05)
+                    : Colors.black.withOpacity(0.05),
+                width: 1.5,
               ),
-              BlocBuilder<FavoritesCubit, FavoritesState>(
-                builder: (context, state) {
-                  return badges.Badge(
-                    showBadge: state.favorites.isNotEmpty,
-                    badgeContent: Text(
-                      state.favorites.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    position: badges.BadgePosition.topEnd(top: -8, end: -8),
-                    badgeStyle: badges.BadgeStyle(
-                      badgeColor: AppColors.primary,
-                      padding: EdgeInsets.all(4.w),
-                    ),
-                    child: _buildNavItem(
-                      context,
-                      index: 1,
-                      icon: Assets.icons.typeRegularStateOutlineLibraryHeart,
-                      onTap: () => pageController.animateToPage(
-                        1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _buildNavItem(
-                context,
-                index: 2,
-                icon: Assets.icons.typeRegularStateOutlineLibraryBag,
-                onTap: () => pageController.animateToPage(
-                  2,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                ),
-              ),
-              _buildNavItem(
-                context,
-                index: 3,
-                icon: Assets.icons.typeRegularStateOutlineLibraryNotification,
-                onTap: () => pageController.animateToPage(
-                  3,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                ),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
+                blurRadius: 20,
+                offset: const Offset(0, -5),
               ),
             ],
+          ),
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem(
+                    context,
+                    index: 0,
+                    icon: Assets.icons.typeRegularStateOutlineLibraryHome,
+                    onTap: () => pageController.animateToPage(
+                      0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    ),
+                  ),
+                  BlocBuilder<FavoritesCubit, FavoritesState>(
+                    builder: (context, state) {
+                      return badges.Badge(
+                        showBadge: state.favorites.isNotEmpty,
+                        badgeContent: Text(
+                          state.favorites.length.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        position: badges.BadgePosition.topEnd(top: -8, end: -8),
+                        badgeStyle: badges.BadgeStyle(
+                          badgeColor: AppColors.primary,
+                          padding: EdgeInsets.all(4.w),
+                        ),
+                        child: _buildNavItem(
+                          context,
+                          index: 1,
+                          icon:
+                              Assets.icons.typeRegularStateOutlineLibraryHeart,
+                          onTap: () => pageController.animateToPage(
+                            1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  _buildNavItem(
+                    context,
+                    index: 2,
+                    icon: Assets.icons.typeRegularStateOutlineLibraryBag,
+                    onTap: () => pageController.animateToPage(
+                      2,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    ),
+                  ),
+                  _buildNavItem(
+                    context,
+                    index: 3,
+                    icon:
+                        Assets.icons.typeRegularStateOutlineLibraryNotification,
+                    onTap: () => pageController.animateToPage(
+                      3,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -129,21 +138,46 @@ class CustomNavBar extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
+      splashColor: AppColors.primary.withOpacity(0.1),
+      highlightColor: Colors.transparent,
       borderRadius: BorderRadius.circular(12.r),
-      child: Container(
-        padding: EdgeInsets.all(12.w),
-        child: SvgPicture.asset(
-          icon,
-          width: 24.w,
-          height: 24.h,
-          colorFilter: ColorFilter.mode(
-            isActive
-                ? AppColors.primary
-                : (isDark
-                      ? Colors.white.withOpacity(0.5)
-                      : Colors.grey.shade400),
-            BlendMode.srcIn,
-          ),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: EdgeInsets.all(10.w),
+        decoration: BoxDecoration(
+          color: isActive
+              ? AppColors.primary.withOpacity(0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: 24.w,
+              height: 24.h,
+              colorFilter: ColorFilter.mode(
+                isActive
+                    ? AppColors.primary
+                    : (isDark
+                          ? Colors.white.withOpacity(0.5)
+                          : Colors.grey.shade400),
+                BlendMode.srcIn,
+              ),
+            ),
+            if (isActive) ...[
+              SizedBox(height: 4.h),
+              Container(
+                width: 4.w,
+                height: 4.h,
+                decoration: const BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ],
+          ],
         ),
       ),
     );

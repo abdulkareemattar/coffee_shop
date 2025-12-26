@@ -34,7 +34,7 @@ class CoffeeRepositoryImpl implements CoffeeRepository {
   }
 
   @override
-  Future<void> removeFromFavorites(int id) async {
+  Future<void> removeFromFavorites(String id) async {
     await DatabaseHelper.removeFromFavorites(id);
   }
 
@@ -47,7 +47,7 @@ class CoffeeRepositoryImpl implements CoffeeRepository {
       return response.products
           .map(
             (product) => Coffee(
-              id: int.tryParse(product.id) ?? 0,
+              id: product.id,
               imagePath: product.image,
               name: product.name,
               type: '', // You may need to add category info
@@ -73,7 +73,7 @@ class CoffeeRepositoryImpl implements CoffeeRepository {
       return products
           .map(
             (product) => Coffee(
-              id: int.tryParse(product.id) ?? 0,
+              id: product.id,
               imagePath: product.image,
               name: product.name,
               type: '',

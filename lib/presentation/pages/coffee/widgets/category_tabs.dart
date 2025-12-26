@@ -19,77 +19,93 @@ class CategoryTabsState extends State<CategoryTabs> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return BlocBuilder<CategoriesCubit, CategoriesState>(
       builder: (context, state) {
         return state.maybeWhen(
           loaded: (categories) {
-            // Add "All" as first category
             final allCategories = [
               {'id': null, 'name': 'All Coffee'},
               ...categories.map((c) => {'id': c.id, 'name': c.name}),
             ];
 
             return SizedBox(
-              height: 38.h,
+              height: 42.h,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 itemCount: allCategories.length,
-                separatorBuilder: (context, index) => SizedBox(width: 5.w),
+                separatorBuilder: (context, index) => SizedBox(width: 8.w),
                 itemBuilder: (context, index) {
                   final category = allCategories[index];
                   final categoryId = category['id'] as String?;
                   final categoryName = category['name'] as String;
                   bool isSelected = _selectedCategoryId == categoryId;
 
-                  return ChoiceChip(
-                    label: Text(categoryName),
-                    selected: isSelected,
-                    onSelected: (selected) {
-                      if (selected) {
-                        setState(() {
-                          _selectedCategoryId = categoryId;
-                        });
-                        // Load products by category or all products
-                        if (categoryId == null) {
-                          context.read<ProductsCubit>().loadProducts();
-                        } else {
-                          context.read<ProductsCubit>().loadProductsByCategory(
-                            categoryId,
-                          );
-                        }
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedCategoryId = categoryId;
+                      });
+                      if (categoryId == null) {
+                        context.read<ProductsCubit>().loadProducts();
+                      } else {
+                        context.read<ProductsCubit>().loadProductsByCategory(
+                          categoryId,
+                        );
                       }
                     },
-                    backgroundColor: Colors.transparent,
-                    selectedColor: AppColors.primary,
-                    labelStyle: TextStyle(
-                      color: isSelected ? Colors.white : AppColors.darkGrey,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? AppColors.primary
+                            : (isDark
+                                  ? Colors.white.withOpacity(0.05)
+                                  : const Color(0xFFF9F9F9)),
+                        borderRadius: BorderRadius.circular(12.r),
+                        border: isSelected
+                            ? null
+                            : Border.all(
+                                color: isDark
+                                    ? Colors.white.withOpacity(0.1)
+                                    : Colors.transparent,
+                              ),
+                      ),
+                      child: Text(
+                        categoryName,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: isSelected
+                              ? Colors.white
+                              : (isDark ? Colors.white70 : AppColors.darkGrey),
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.w600,
+                        ),
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                      side: const BorderSide(color: Colors.transparent),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                   );
                 },
               ),
             );
           },
           loading: () => SizedBox(
-            height: 38.h,
+            height: 42.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 30.w),
               itemCount: 5,
-              separatorBuilder: (context, index) => SizedBox(width: 5.w),
+              separatorBuilder: (context, index) => SizedBox(width: 8.w),
               itemBuilder: (context, index) => Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
+                baseColor: isDark ? Colors.grey[900]! : Colors.grey[300]!,
+                highlightColor: isDark ? Colors.grey[800]! : Colors.grey[100]!,
                 child: Container(
-                  width: 80.w,
+                  width: 90.w,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.r),
@@ -99,18 +115,18 @@ class CategoryTabsState extends State<CategoryTabs> {
             ),
           ),
           error: (message) => SizedBox(
-            height: 38.h,
+            height: 42.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Failed to load categories',
-                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                  style: theme.textTheme.bodySmall,
                 ),
                 TextButton(
                   onPressed: () =>
                       context.read<CategoriesCubit>().loadCategories(),
-                  child: Text('Retry', style: TextStyle(fontSize: 12.sp)),
+                  child: const Text('Retry'),
                 ),
               ],
             ),

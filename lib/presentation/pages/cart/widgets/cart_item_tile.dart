@@ -5,6 +5,7 @@ import 'package:coffee_shop/domain/entities/cart_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:coffee_shop/presentation/manager/cubit/cart/cart_cubit.dart';
 import 'package:coffee_shop/core/widgets/custom_network_image.dart';
+import 'package:coffee_shop/presentation/manager/cubit/theme/theme_cubit.dart';
 
 class CartItemTile extends StatelessWidget {
   final CartItem item;
@@ -15,16 +16,22 @@ class CartItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = context.isDarkMode;
+
     return Container(
       margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? const Color(0xFF2A2A2A) : Colors.white,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.lightGrey),
+        border: Border.all(
+          color: isDark ? const Color(0xFF3E3E3E) : AppColors.lightGrey,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: isDark
+                ? Colors.black.withOpacity(0.2)
+                : Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -62,7 +69,9 @@ class CartItemTile extends StatelessWidget {
                   Text(
                     'Size: ${item.size}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey.shade600,
+                      color: isDark
+                          ? Colors.grey.shade400
+                          : Colors.grey.shade600,
                     ),
                   ),
                   SizedBox(height: 4.h),
@@ -71,7 +80,9 @@ class CartItemTile extends StatelessWidget {
                   Text(
                     'Extras: ${item.extras!.join(", ")}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey.shade600,
+                      color: isDark
+                          ? Colors.grey.shade400
+                          : Colors.grey.shade600,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -109,6 +120,7 @@ class CartItemTile extends StatelessWidget {
   }
 
   Widget _buildQuantityControls(BuildContext context, CartItem item) {
+    final isDark = context.isDarkMode;
     return Row(
       children: [
         GestureDetector(
@@ -125,15 +137,19 @@ class CartItemTile extends StatelessWidget {
             height: 32.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.lightGrey),
-              color: item.quantity > 1 ? Colors.white : Colors.grey.shade200,
+              border: Border.all(
+                color: isDark ? const Color(0xFF3E3E3E) : AppColors.lightGrey,
+              ),
+              color: item.quantity > 1
+                  ? (isDark ? Colors.transparent : Colors.white)
+                  : (isDark ? Colors.grey.shade800 : Colors.grey.shade200),
             ),
             child: Icon(
               Icons.remove,
               size: 18.sp,
               color: item.quantity > 1
-                  ? AppColors.darkGrey
-                  : Colors.grey.shade400,
+                  ? (isDark ? Colors.white : AppColors.darkGrey)
+                  : (isDark ? Colors.grey.shade600 : Colors.grey.shade400),
             ),
           ),
         ),

@@ -7,6 +7,8 @@ class CoffeeGridShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -21,7 +23,7 @@ class CoffeeGridShimmer extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDark ? const Color(0xFF2A2A2A) : Colors.white,
             borderRadius: BorderRadius.circular(16.r),
           ),
           child: Column(
@@ -29,11 +31,13 @@ class CoffeeGridShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: isDark ? Colors.grey[800]! : Colors.grey[300]!,
+                  highlightColor: isDark
+                      ? Colors.grey[700]!
+                      : Colors.grey[100]!,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: isDark ? Colors.grey[800] : Colors.white,
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
@@ -45,22 +49,26 @@ class CoffeeGridShimmer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
+                      baseColor: isDark ? Colors.grey[800]! : Colors.grey[300]!,
+                      highlightColor: isDark
+                          ? Colors.grey[700]!
+                          : Colors.grey[100]!,
                       child: Container(
                         height: 12.h,
                         width: 100.w,
-                        color: Colors.white,
+                        color: isDark ? Colors.grey[800] : Colors.white,
                       ),
                     ),
                     SizedBox(height: 8.h),
                     Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
+                      baseColor: isDark ? Colors.grey[800]! : Colors.grey[300]!,
+                      highlightColor: isDark
+                          ? Colors.grey[700]!
+                          : Colors.grey[100]!,
                       child: Container(
                         height: 10.h,
                         width: 60.w,
-                        color: Colors.white,
+                        color: isDark ? Colors.grey[800] : Colors.white,
                       ),
                     ),
                   ],

@@ -42,8 +42,8 @@ AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) => AuthResponse(
 
 Map<String, dynamic> _$AuthResponseToJson(AuthResponse instance) =>
     <String, dynamic>{
-      'token': instance.token,
-      'user': instance.user,
+      'token': ?instance.token,
+      'user': ?instance.user,
       'message': instance.message,
     };
 

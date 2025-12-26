@@ -39,14 +39,33 @@ class RegisterRequest {
 
 @JsonSerializable()
 class AuthResponse {
+  @JsonKey(name: 'token', includeIfNull: false)
   final String? token;
+
+  @JsonKey(name: 'user', includeIfNull: false)
   final UserData? user;
+
   final String? message;
 
   AuthResponse({this.token, this.user, this.message});
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) =>
-      _$AuthResponseFromJson(json);
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    // Manually handle alternative keys if standard ones are missing
+    String? effectiveToken = json['token'] ?? json['accessToken'];
+    UserData? effectiveUser;
+
+    if (json['user'] != null) {
+      effectiveUser = UserData.fromJson(json['user']);
+    } else if (json['newUser'] != null) {
+      effectiveUser = UserData.fromJson(json['newUser']);
+    }
+
+    return AuthResponse(
+      token: effectiveToken,
+      user: effectiveUser,
+      message: json['message'],
+    );
+  }
 
   Map<String, dynamic> toJson() => _$AuthResponseToJson(this);
 }

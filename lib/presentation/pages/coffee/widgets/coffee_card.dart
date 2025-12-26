@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:coffee_shop/core/widgets/custom_network_image.dart';
-
 import 'package:coffee_shop/core/utils/app_colors.dart';
 
 class CoffeeCard extends StatelessWidget {
@@ -25,18 +24,25 @@ class CoffeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.all(4.r),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+        border: isDark
+            ? Border.all(color: Colors.white.withOpacity(0.05), width: 1)
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +80,7 @@ class CoffeeCard extends StatelessWidget {
                         Text(
                           rating.toString(),
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: AppColors.white,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -90,6 +96,8 @@ class CoffeeCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Text(
               name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -98,9 +106,14 @@ class CoffeeCard extends StatelessWidget {
           SizedBox(height: 4.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: Text(type, style: theme.textTheme.bodySmall),
+            child: Text(
+              type,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall,
+            ),
           ),
-          SizedBox(height: 12.h),
+          const Spacer(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Row(
@@ -110,7 +123,7 @@ class CoffeeCard extends StatelessWidget {
                   '\$ ${price.toStringAsFixed(2)}',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
+                    color: isDark ? const Color(0xFFD17842) : AppColors.primary,
                   ),
                 ),
                 SizedBox(
@@ -125,17 +138,13 @@ class CoffeeCard extends StatelessWidget {
                       ),
                       padding: EdgeInsets.zero,
                     ),
-                    child: const Icon(
-                      Icons.add,
-                      color: AppColors.white,
-                      size: 20,
-                    ),
+                    child: const Icon(Icons.add, color: Colors.white, size: 20),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 4.h),
+          SizedBox(height: 8.h),
         ],
       ),
     );

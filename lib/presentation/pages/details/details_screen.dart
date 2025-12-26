@@ -30,35 +30,48 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         scrolledUnderElevation: 0,
+        backgroundColor: theme.scaffoldBackgroundColor,
         leading: Padding(
           padding: EdgeInsets.all(10.0.w),
           child: IconButton(
             icon: SvgPicture.asset(
               Assets.icons.typeRegularStateOutlineLibraryArrowLeft2,
+              colorFilter: ColorFilter.mode(
+                isDark ? Colors.white : Colors.black,
+                BlendMode.srcIn,
+              ),
             ),
             onPressed: () => context.pop(),
           ),
         ),
-        title: Text('Details of ${widget.coffeeModel.name}'),
+        title: Text(
+          'Details',
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         actions: [
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: BlocBuilder<FavoritesCubit, FavoritesState>(
               builder: (context, state) {
                 final isFavorite = state.favorites.any(
                   (fav) => fav.id == widget.coffeeModel.id,
                 );
                 return IconButton(
-                  iconSize: 32,
                   icon: SvgPicture.asset(
                     Assets.icons.typeRegularStateOutlineLibraryHeart,
                     colorFilter: ColorFilter.mode(
-                      isFavorite ? Colors.red : Colors.grey,
+                      isFavorite
+                          ? Colors.red
+                          : (isDark ? Colors.white70 : Colors.black),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -73,13 +86,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 202.h,
-              width: 327.w,
+              width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16.r),
                 child: CustomNetworkImage(
@@ -105,74 +119,68 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     color: Colors.grey.shade500,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
-                    _buildInfoIcon(Assets.icons.icon.path),
+                    _buildInfoIcon(context, Assets.icons.icon.path),
                     SizedBox(width: 12.w),
-                    _buildInfoIcon(Assets.icons.icon1.path),
+                    _buildInfoIcon(context, Assets.icons.icon1.path),
                     SizedBox(width: 12.w),
-                    _buildInfoIcon(Assets.icons.icon2.path),
+                    _buildInfoIcon(context, Assets.icons.icon2.path),
                   ],
                 ),
               ],
             ),
+            SizedBox(height: 12.h),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.amber, size: 24),
-                    SizedBox(width: 4.w),
-                    Text(
-                      widget.coffeeModel.rating.toString(),
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      '(230)',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
+                const Icon(Icons.star, color: Colors.amber, size: 24),
+                SizedBox(width: 4.w),
+                Text(
+                  widget.coffeeModel.rating.toString(),
+                  style: theme.textTheme.titleMedium,
+                ),
+                SizedBox(width: 4.w),
+                Text(
+                  '(230)',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade500,
+                  ),
                 ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: Divider(color: Colors.grey.shade300, thickness: 1.h),
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: Divider(
+                color: isDark
+                    ? Colors.white.withOpacity(0.05)
+                    : Colors.grey.shade200,
+                thickness: 1.h,
+              ),
             ),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Description', style: theme.textTheme.titleLarge),
-                SizedBox(height: 12.h),
-                ReadMoreText(
-                  widget.coffeeModel.description,
-                  trimMode: TrimMode.Line,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey.shade600,
-                    height: 1.5,
-                  ),
-
-                  trimCollapsedText: ' Read More',
-                  moreStyle: const TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-
-                  trimExpandedText: ' Read Less',
-                  lessStyle: const TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            Text('Description', style: theme.textTheme.titleLarge),
+            SizedBox(height: 12.h),
+            ReadMoreText(
+              widget.coffeeModel.description,
+              trimMode: TrimMode.Line,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: isDark ? Colors.white70 : Colors.grey.shade600,
+                height: 1.5,
+              ),
+              trimCollapsedText: ' Read More',
+              moreStyle: const TextStyle(
+                color: AppColors.primary,
+                fontWeight: FontWeight.bold,
+              ),
+              trimExpandedText: ' Read Less',
+              lessStyle: const TextStyle(
+                color: AppColors.primary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 20.h),
-            SelectSizeContainers(),
+            SizedBox(height: 24.h),
+            const SelectSizeContainers(),
+            SizedBox(height: 120.h), // Space for bottom bar
           ],
         ),
       ),
@@ -182,21 +190,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
       ),
     );
   }
-}
 
-Widget _buildInfoIcon(String iconPath) {
-  return Container(
-    padding: EdgeInsets.all(12.r),
-    decoration: BoxDecoration(
-      color: AppColors.lightGrey.withAlpha(50),
-      borderRadius: BorderRadius.circular(14.r),
-    ),
-    child: Image.asset(iconPath, height: 20.h),
-  );
+  Widget _buildInfoIcon(BuildContext context, String iconPath) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: EdgeInsets.all(12.r),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.white.withOpacity(0.05)
+            : const Color(0xFFF9F9F9),
+        borderRadius: BorderRadius.circular(14.r),
+        border: isDark
+            ? Border.all(color: Colors.white.withOpacity(0.05))
+            : null,
+      ),
+      child: Image.asset(
+        iconPath,
+        height: 20.h,
+        color: isDark ? AppColors.primary : null,
+      ),
+    );
+  }
 }
 
 void _addToCart(BuildContext context, CoffeeModel coffeeModel) {
-  // Convert CoffeeModel to Product
   final product = Product(
     id: coffeeModel.id.toString(),
     name: coffeeModel.name,
@@ -207,28 +224,24 @@ void _addToCart(BuildContext context, CoffeeModel coffeeModel) {
     rating: coffeeModel.rating,
   );
 
-  // Create CartItem
   final cartItem = CartItem(
     id: const Uuid().v4(),
     product: product,
     quantity: 1,
   );
 
-  // Add to cart
   context.read<CartCubit>().addToCart(cartItem);
 
-  // Show success message
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text('${coffeeModel.name} added to cart'),
       backgroundColor: AppColors.green,
+      behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 2),
       action: SnackBarAction(
         label: 'View Cart',
         textColor: Colors.white,
-        onPressed: () {
-          context.go('/cart');
-        },
+        onPressed: () => context.go('/cart'),
       ),
     ),
   );

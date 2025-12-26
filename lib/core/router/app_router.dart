@@ -16,6 +16,9 @@ import '../../presentation/pages/favorites/favorites_screen.dart';
 import 'package:coffee_shop/presentation/pages/order/order_screen.dart';
 import 'package:coffee_shop/presentation/pages/splash/animated_splash_screen.dart';
 import 'package:coffee_shop/presentation/pages/tracking/tracking_screen.dart';
+import 'package:coffee_shop/presentation/pages/admin/dashboard/admin_dashboard_screen.dart';
+import 'package:coffee_shop/presentation/pages/admin/products/admin_products_screen.dart';
+import 'package:coffee_shop/presentation/pages/admin/categories/admin_categories_screen.dart';
 
 @lazySingleton
 class AppRouter {
@@ -32,6 +35,11 @@ class AppRouter {
     redirect: (context, state) {
       final authState = _authCubit.state;
 
+      final userRole = authState.maybeWhen(
+        authenticated: (response) => response.user?.role ?? 'client',
+        orElse: () => 'client',
+      );
+
       final isAuthenticated = authState.maybeWhen(
         authenticated: (_) => true,
         orElse: () => false,
@@ -41,24 +49,30 @@ class AppRouter {
       final isLoginPage = state.uri.path == '/login';
       final isRegisterPage = state.uri.path == '/register';
       final isAuthPage = isLoginPage || isRegisterPage;
+      final isAdminPage = state.uri.path.startsWith('/admin');
 
-      // If on onboarding page, check auth status and redirect accordingly
-      if (isOnboardingPage) {
-        if (isAuthenticated) {
-          return '/home';
-        }
-        // Let onboarding page handle navigation to login
-        return null;
+      // 1. Unauthenticated users trying to access protected pages (including admin)
+      if (!isAuthenticated &&
+          !isAuthPage &&
+          !isOnboardingPage &&
+          state.uri.path != '/splash') {
+        return '/login';
       }
 
-      // If user is authenticated and trying to access auth pages, redirect to home
+      // 2. Authenticated users trying to access auth pages (login/register)
       if (isAuthenticated && isAuthPage) {
+        return userRole == 'admin' ? '/admin' : '/home';
+      }
+
+      // 3. Security: Prevent non-admin users from accessing admin pages
+      if (isAuthenticated && isAdminPage && userRole != 'admin') {
         return '/home';
       }
 
-      // If user is not authenticated and trying to access protected pages, redirect to login
-      if (!isAuthenticated && !isAuthPage && !isOnboardingPage) {
-        return '/login';
+      // 4. Case where authenticated user is at root / or splash
+      if (isAuthenticated &&
+          (state.uri.path == '/' || state.uri.path == '/splash')) {
+        return userRole == 'admin' ? '/admin' : '/home';
       }
 
       return null; // No redirect needed
@@ -151,6 +165,25 @@ class AppRouter {
         path: '/tracking',
         name: 'tracking',
         builder: (context, state) => const TrackingScreen(),
+      ),
+
+      // Admin Routes
+      GoRoute(
+        path: '/admin',
+        name: 'admin_dashboard',
+        builder: (context, state) => const AdminDashboardScreen(),
+        routes: [
+          GoRoute(
+            path: 'products',
+            name: 'admin_products',
+            builder: (context, state) => const AdminProductsScreen(),
+          ),
+          GoRoute(
+            path: 'categories',
+            name: 'admin_categories',
+            builder: (context, state) => const AdminCategoriesScreen(),
+          ),
+        ],
       ),
     ],
 

@@ -15,12 +15,15 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.bottomSheetTheme.backgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
-      padding: EdgeInsets.all(24.w),
+      padding: EdgeInsets.fromLTRB(24.w, 12.h, 24.w, 24.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,32 +34,32 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               width: 40.w,
               height: 4.h,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: isDark ? Colors.white24 : Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(2.r),
               ),
             ),
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 24.h),
 
           // Title
           Text(
             'Filter',
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 24.h),
 
           // Price Range
-          Text(
-            'Price Range',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 8.h),
+          Text('Price Range', style: theme.textTheme.titleMedium),
+          SizedBox(height: 12.h),
           RangeSlider(
             values: _priceRange,
             min: 0,
             max: 100,
             divisions: 20,
             activeColor: AppColors.primary,
+            inactiveColor: isDark ? Colors.white10 : Colors.grey.shade200,
             labels: RangeLabels(
               '\$${_priceRange.start.round()}',
               '\$${_priceRange.end.round()}',
@@ -67,27 +70,40 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               });
             },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('\$${_priceRange.start.round()}'),
-              Text('\$${_priceRange.end.round()}'),
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '\$${_priceRange.start.round()}',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '\$${_priceRange.end.round()}',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 24.h),
 
           // Rating
-          Text(
-            'Minimum Rating',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: 8.h),
+          Text('Minimum Rating', style: theme.textTheme.titleMedium),
+          SizedBox(height: 12.h),
           Slider(
             value: _minRating,
             min: 0,
             max: 5,
             divisions: 10,
             activeColor: AppColors.primary,
+            inactiveColor: isDark ? Colors.white10 : Colors.grey.shade200,
             label: _minRating.toStringAsFixed(1),
             onChanged: (value) {
               setState(() {
@@ -95,13 +111,34 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               });
             },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('0.0'),
-              Text(_minRating.toStringAsFixed(1)),
-              const Text('5.0'),
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('0.0', style: theme.textTheme.bodySmall),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.amber, size: 14),
+                      SizedBox(width: 4.w),
+                      Text(
+                        _minRating.toStringAsFixed(1),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text('5.0', style: theme.textTheme.bodySmall),
+              ],
+            ),
           ),
           SizedBox(height: 32.h),
 
@@ -121,7 +158,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.r),
                     ),
-                    side: BorderSide(color: AppColors.primary),
+                    side: const BorderSide(color: AppColors.primary),
                   ),
                   child: Text(
                     'Reset',
@@ -137,7 +174,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO: Apply filters
                     Navigator.pop(context, {
                       'priceRange': _priceRange,
                       'minRating': _minRating,

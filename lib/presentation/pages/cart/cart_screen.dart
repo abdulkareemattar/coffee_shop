@@ -28,19 +28,18 @@ class _CartScreenState extends State<CartScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: theme.iconTheme.color),
           onPressed: () => context.pop(),
         ),
         title: Text(
           'Cart',
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
           ),
         ),
         centerTitle: true,
@@ -131,21 +130,20 @@ class _CartScreenState extends State<CartScreen> {
           Icon(
             Icons.shopping_cart_outlined,
             size: 120.sp,
-            color: Colors.grey.shade300,
+            color: theme.dividerColor.withOpacity(0.5),
           ),
           SizedBox(height: 24.h),
           Text(
             'Your cart is empty',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade700,
             ),
           ),
           SizedBox(height: 8.h),
           Text(
             'Add some items to get started',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey.shade500,
+              color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
             ),
           ),
           SizedBox(height: 32.h),

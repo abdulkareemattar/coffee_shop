@@ -11,6 +11,7 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.white,
       fontFamily: Assets.fonts.soraRegular,
       brightness: Brightness.light,
+      cardColor: AppColors.white,
       colorScheme: ColorScheme.light(
         primary: AppColors.primary,
         secondary: AppColors.lightBrown,
@@ -25,6 +26,31 @@ class AppTheme {
       textTheme: _textTheme(Brightness.light),
       elevatedButtonTheme: _elevatedButtonTheme,
       inputDecorationTheme: _inputDecorationTheme(Brightness.light),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: AppColors.white,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: Colors.transparent,
+        selectedColor: AppColors.primary,
+        labelStyle: TextStyle(
+          color: AppColors.darkGrey,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        secondaryLabelStyle: TextStyle(
+          color: AppColors.white,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        side: BorderSide.none,
+      ),
     );
   }
 
@@ -35,6 +61,7 @@ class AppTheme {
       scaffoldBackgroundColor: const Color(0xFF0C0C0C),
       fontFamily: Assets.fonts.soraRegular,
       brightness: Brightness.dark,
+      cardColor: const Color(0xFF1E1E1E),
       colorScheme: ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.lightBrown,
@@ -49,6 +76,31 @@ class AppTheme {
       textTheme: _textTheme(Brightness.dark),
       elevatedButtonTheme: _elevatedButtonTheme,
       inputDecorationTheme: _inputDecorationTheme(Brightness.dark),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: const Color(0xFF1E1E1E),
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: Colors.transparent,
+        selectedColor: AppColors.primary,
+        labelStyle: TextStyle(
+          color: Colors.white70,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        secondaryLabelStyle: TextStyle(
+          color: AppColors.white,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        side: BorderSide.none,
+      ),
     );
   }
 
@@ -69,6 +121,21 @@ class AppTheme {
       ),
       headlineSmall: TextStyle(
         fontSize: 24.sp,
+        fontWeight: FontWeight.w600,
+        color: textColor,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w600,
+        color: textColor,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        color: textColor,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 14.sp,
         fontWeight: FontWeight.w600,
         color: textColor,
       ),

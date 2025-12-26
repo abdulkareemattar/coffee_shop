@@ -44,7 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             state.maybeWhen(
-              authenticated: (_) => context.go('/home'),
+              authenticated: (response) {
+                // Navigation is now handled by GoRouter's refreshListenable and redirect logic
+                // in app_router.dart based on the user role.
+              },
               failure: (message) =>
                   CustomSnackBar.showError(context, message: message),
               orElse: () {},

@@ -14,7 +14,7 @@ class DatabaseHelper {
         // The comment that caused the error has been removed.
         await db.execute('''
           CREATE TABLE favorites ( 
-            id INTEGER PRIMARY KEY, 
+            id TEXT PRIMARY KEY, 
             name TEXT,
             imagePath TEXT,
             price REAL,
@@ -34,7 +34,7 @@ class DatabaseHelper {
     );
   }
 
-  static Future<void> removeFromFavorites(int id) async {
+  static Future<void> removeFromFavorites(String id) async {
     final db = await _getDb();
     await db.delete('favorites', where: 'id = ?', whereArgs: [id]);
   }
